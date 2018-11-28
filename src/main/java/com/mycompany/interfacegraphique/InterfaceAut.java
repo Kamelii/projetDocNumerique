@@ -184,7 +184,7 @@ public class InterfaceAut extends java.awt.Frame {
      
         if(err != 1){
             XmlTools xmlTools = new XmlTools();
-            if(xmlTools.creerAuth(texteEmetteur.getText(), texteRecepteur.getText(), (Integer)choixNbJour.getValue(),texteMailEmetteur.getText(), textMailRecepteur.getText()))
+            if(xmlTools.creerAuth(texteEmetteur.getText(), texteRecepteur.getText(), (Integer)choixNbJour.getValue(),texteMailEmetteur.getText(), textMailRecepteur.getText(), texteDescDemande.getText()))
                 JOptionPane.showMessageDialog(null,"Demande cree avec succes");
             else
                 JOptionPane.showMessageDialog(null,"Erreur veuillez resseayer plus tard");

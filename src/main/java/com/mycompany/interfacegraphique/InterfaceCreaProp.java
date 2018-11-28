@@ -5,6 +5,7 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.XmlTools;
 import java.awt.Color;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -15,14 +16,14 @@ import javax.swing.JSpinner;
  * @author qbiss
  */
 public class InterfaceCreaProp extends java.awt.Frame {
-    private int estCheckDesire = 0,estCheckPropose = 0;
+    public static int estCheckDesire = 0,estCheckPropose = 0;
     /**
      * Creates new form InterfaceAut
      */
     public InterfaceCreaProp() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,6 +90,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(nomEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 160, 20));
 
         texteEmetteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteEmetteur.setNextFocusableComponent(texteRecepteur);
         pan.add(texteEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 330, 20));
 
         nomRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -98,6 +100,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         nomRecepteur.getAccessibleContext().setAccessibleName("");
 
         texteRecepteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteRecepteur.setNextFocusableComponent(choixNbJour);
         pan.add(texteRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 330, 20));
 
         duree.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -111,6 +114,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(mailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 160, 20));
 
         texteMailEmetteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteMailEmetteur.setNextFocusableComponent(textMailRecepteur);
         pan.add(texteMailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 330, 20));
 
         mailRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -119,6 +123,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(mailRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 160, -1));
 
         textMailRecepteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        textMailRecepteur.setNextFocusableComponent(texteTitreProp);
         pan.add(textMailRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 330, -1));
 
         coordonnees.setBackground(new java.awt.Color(210, 210, 210));
@@ -149,6 +154,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(titreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
 
         texteTitreProp.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteTitreProp.setNextFocusableComponent(texteTypeObjPropose);
         pan.add(texteTitreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 310, -1));
 
         jePropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -161,6 +167,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(typeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 170, -1));
 
         texteTypeObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteTypeObjPropose.setNextFocusableComponent(texteDescriptObjPropose);
         pan.add(texteTypeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 420, 320, -1));
 
         descriptObjPropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -170,6 +177,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         texteDescriptObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteDescriptObjPropose.setAutoscrolls(false);
+        texteDescriptObjPropose.setNextFocusableComponent(texteTypeObjDesire);
         scrollDescObjPropose.setViewportView(texteDescriptObjPropose);
 
         pan.add(scrollDescObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 320, 130));
@@ -184,6 +192,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 650, 170, -1));
 
         texteTypeObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteTypeObjDesire.setNextFocusableComponent(texteDescriptObjDesire);
         pan.add(texteTypeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 650, 320, -1));
 
         descriptObjDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -193,6 +202,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         texteDescriptObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteDescriptObjDesire.setAutoscrolls(false);
+        texteDescriptObjDesire.setNextFocusableComponent(boutonValiderProp);
         scrollDescObjDesire.setViewportView(texteDescriptObjDesire);
 
         pan.add(scrollDescObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 690, 320, 130));
@@ -220,6 +230,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         boutonValiderProp.setText("Envoyer la proposition / demande ");
         boutonValiderProp.setMaximumSize(new java.awt.Dimension(275, 30));
         boutonValiderProp.setMinimumSize(new java.awt.Dimension(275, 30));
+        boutonValiderProp.setNextFocusableComponent(texteEmetteur);
         boutonValiderProp.setPreferredSize(new java.awt.Dimension(275, 30));
         boutonValiderProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,6 +244,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, 40));
 
         choixNbJour.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        choixNbJour.setNextFocusableComponent(texteMailEmetteur);
         choixNbJour.setValue(1);
         choixNbJour.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -357,7 +369,12 @@ public class InterfaceCreaProp extends java.awt.Frame {
         }
         
         if(err != 1){
-            //TODO Mettre la fonction qui crée le fichier xml de la proposition
+            XmlTools xmlTools = new XmlTools();
+            if(xmlTools.creerProp(texteEmetteur.getText(), texteRecepteur.getText(), (Integer)choixNbJour.getValue(),texteMailEmetteur.getText(), textMailRecepteur.getText(),texteTitreProp.getText()))
+                JOptionPane.showMessageDialog(null,"Demande cree avec succes");
+            else
+                JOptionPane.showMessageDialog(null,"Erreur veuillez resseayer plus tard");
+                
         }
     }//GEN-LAST:event_boutonValiderPropActionPerformed
 
@@ -402,14 +419,14 @@ public class InterfaceCreaProp extends java.awt.Frame {
     private javax.swing.JScrollPane scrollDescObjDesire;
     private javax.swing.JScrollPane scrollDescObjPropose;
     private javax.swing.JTextField textMailRecepteur;
-    private javax.swing.JTextPane texteDescriptObjDesire;
-    private javax.swing.JTextPane texteDescriptObjPropose;
+    public static javax.swing.JTextPane texteDescriptObjDesire;
+    public static javax.swing.JTextPane texteDescriptObjPropose;
     private javax.swing.JTextField texteEmetteur;
     private javax.swing.JTextField texteMailEmetteur;
     private javax.swing.JTextField texteRecepteur;
     private javax.swing.JTextField texteTitreProp;
-    private javax.swing.JTextField texteTypeObjDesire;
-    private javax.swing.JTextField texteTypeObjPropose;
+    public static javax.swing.JTextField texteTypeObjDesire;
+    public static javax.swing.JTextField texteTypeObjPropose;
     private javax.swing.JLabel titreFenetreProp;
     private javax.swing.JLabel titreProp;
     private javax.swing.JLabel typeObjDesire;

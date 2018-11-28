@@ -5,6 +5,7 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.XMLParser;
 /**
  *
  * @author DELL XPS
@@ -89,7 +90,7 @@ public class InterfaceAcc extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
-        //TODO Mettre la fonction qui crée le fichier xml de l'acceptation de l'autorisation
+        
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
     private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
@@ -101,7 +102,10 @@ public class InterfaceAcc extends java.awt.Frame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new InterfaceAcc().setVisible(true);
+            InterfaceAcc ia = new InterfaceAcc();
+            XMLParser.AfficherAcc("xml.xml");
+            ia.setVisible(true);
+                    
         });
     }
 
@@ -110,7 +114,7 @@ public class InterfaceAcc extends java.awt.Frame {
     private javax.swing.JButton boutonAccepter;
     private javax.swing.JButton boutonRefuser;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel messageTroc;
+    public static javax.swing.JLabel messageTroc;
     private javax.swing.JLabel titreFenetreAcc;
     // End of variables declaration//GEN-END:variables
 }
