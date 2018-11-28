@@ -7,8 +7,8 @@ package com.mycompany.interfacegraphique;
 
 import java.awt.Color;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class InterfaceCreaProp extends java.awt.Frame {
     private int estCheckDesire = 0,estCheckPropose = 0;
-    private String select = "Jour(s)";
     /**
      * Creates new form InterfaceAut
      */
@@ -38,9 +37,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         texteEmetteur = new javax.swing.JTextField();
         nomRecepteur = new javax.swing.JLabel();
         texteRecepteur = new javax.swing.JTextField();
-        choixDuree = new javax.swing.JComboBox<>();
         duree = new javax.swing.JLabel();
-        texteDuree = new javax.swing.JTextField();
         mailEmetteur = new javax.swing.JLabel();
         texteMailEmetteur = new javax.swing.JTextField();
         mailRecepteur = new javax.swing.JLabel();
@@ -64,6 +61,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
         checkPasObjPropose = new javax.swing.JCheckBox();
         checkPasObjDesire = new javax.swing.JCheckBox();
         boutonValiderProp = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        choixNbJour = new javax.swing.JSpinner();
 
         setPreferredSize(new java.awt.Dimension(535, 915));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -101,22 +100,10 @@ public class InterfaceCreaProp extends java.awt.Frame {
         texteRecepteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         pan.add(texteRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 330, 20));
 
-        choixDuree.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        choixDuree.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jour(s)", "Semaine(s)", "Mois", "Année(s)", "Durée Indéterminée" }));
-        choixDuree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                choixDureeActionPerformed(evt);
-            }
-        });
-        pan.add(choixDuree, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, 20));
-
         duree.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         duree.setText("Durée de validité : *");
         duree.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(duree, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 160, 20));
-
-        texteDuree.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        pan.add(texteDuree, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 60, 20));
 
         mailEmetteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         mailEmetteur.setText("Mail émetteur :");
@@ -241,6 +228,19 @@ public class InterfaceCreaProp extends java.awt.Frame {
         });
         pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 830, 500, 40));
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Jour(s)");
+        pan.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, 40));
+
+        choixNbJour.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        choixNbJour.setValue(1);
+        choixNbJour.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                choixNbJourStateChanged(evt);
+            }
+        });
+        pan.add(choixNbJour, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 50, -1));
+
         add(pan, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -312,28 +312,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
         
     }//GEN-LAST:event_checkPasObjDesireActionPerformed
 
-    private void choixDureeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixDureeActionPerformed
-        JComboBox cb = (JComboBox) evt.getSource();
-        
-        select = cb.getSelectedItem().toString();
-        
-        if(select.compareTo("Durée Indéterminée") == 0){
-            texteDuree.setFocusable(false);
-            texteDuree.setText("");
-            texteDuree.setBackground(new Color(230,230,230));
-            
-            pan.repaint();   
-        }
-        else{
-            texteDuree.setFocusable(true);
-            texteDuree.setBackground(new Color(255,255,255));
-            
-            
-            pan.repaint(); 
-        }
-
-    }//GEN-LAST:event_choixDureeActionPerformed
-
     private void boutonValiderPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonValiderPropActionPerformed
         int err = 0;
         
@@ -347,22 +325,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
             err = 1;
         }
         
-        if(select.compareTo("Durée Indéterminée") != 0){
-            if(texteDuree.getText().isEmpty()){
-                if(select.compareTo("Année(s)") == 0){
-                    JOptionPane.showMessageDialog(null,"Vous devez spécifier un nombre d'Année(s)!");
-                    err = 1;
-                }
-                else{
-                   JOptionPane.showMessageDialog(null,"Vous devez spécifier un nombre de " + select + "!");
-                   err = 1;
-                }
-            }
-            
-            if(!texteDuree.getText().matches("[0-9]*")){
-                JOptionPane.showMessageDialog(null,"Vous devez entrer un enier pour spécifier la durée!");
-            }
-        }
         
         if(texteTitreProp.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Le champs \"Titre de ma proposition\" doit être rempli!");
@@ -399,6 +361,16 @@ public class InterfaceCreaProp extends java.awt.Frame {
         }
     }//GEN-LAST:event_boutonValiderPropActionPerformed
 
+    private void choixNbJourStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_choixNbJourStateChanged
+        JSpinner s = (JSpinner) evt.getSource();
+
+        int value = (Integer) s.getValue();
+
+        if (value < 1){
+            choixNbJour.setValue(1);
+        }
+    }//GEN-LAST:event_choixNbJourStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -413,11 +385,12 @@ public class InterfaceCreaProp extends java.awt.Frame {
     private javax.swing.JButton boutonValiderProp;
     private javax.swing.JCheckBox checkPasObjDesire;
     private javax.swing.JCheckBox checkPasObjPropose;
-    private javax.swing.JComboBox<String> choixDuree;
+    private javax.swing.JSpinner choixNbJour;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JLabel descriptObjDesire;
     private javax.swing.JLabel descriptObjPropose;
     private javax.swing.JLabel duree;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jeDesire;
     private javax.swing.JLabel jePropose;
     private javax.swing.JLabel maProposition;
@@ -431,7 +404,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
     private javax.swing.JTextField textMailRecepteur;
     private javax.swing.JTextPane texteDescriptObjDesire;
     private javax.swing.JTextPane texteDescriptObjPropose;
-    private javax.swing.JTextField texteDuree;
     private javax.swing.JTextField texteEmetteur;
     private javax.swing.JTextField texteMailEmetteur;
     private javax.swing.JTextField texteRecepteur;
