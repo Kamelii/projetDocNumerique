@@ -88,13 +88,23 @@ public class DriverManage {
     public void ajoutMessage(Statement s,String type, int msgid, int fichierid,int dureev){
         
     }
+    // Reponse a la demande d'autorisation
+      public void repAuto(Statement s,String answer){
+     try {
+        int statu = s.executeUpdate("INSERT INTO auto (reponse) VALUES ('"+answer+"')");  
+      System.out.println("!!! REPONSE RECU !!!");
+      }
+  catch (SQLException n){
+      System.out.println(n);
+  }
+      }
 
     public Statement ConnectionDB() {
         try {
             Connection connexion = null;
             String url = "jdbc:mysql://localhost/troc?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             String utilisateur = "root";
-            String motDePasse = "";
+            String motDePasse = "root";
             connexion = DriverManager.getConnection(url, utilisateur, motDePasse);
 
             System.out.println("Connexion réussie !");
