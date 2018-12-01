@@ -6,7 +6,6 @@
 package com.mycompany.interfacegraphique;
 
 import com.company.tools.DriverManage;
-
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.io.StringWriter;
@@ -76,12 +75,12 @@ public class InterfaceAut extends java.awt.Frame {
         pan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         mailEmetteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        mailEmetteur.setText("Mail Ã©metteur :");
+        mailEmetteur.setText("Mail émetteur :");
         mailEmetteur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(mailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 160, 20));
 
         nomEmetteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        nomEmetteur.setText("Nom Ã©metteur : *");
+        nomEmetteur.setText("Nom émetteur : *");
         nomEmetteur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(nomEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 160, 20));
 
@@ -93,7 +92,7 @@ public class InterfaceAut extends java.awt.Frame {
         pan.add(titreFenetreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 500, 50));
 
         nomRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        nomRecepteur.setText("Nom rÃ©cepteur : *");
+        nomRecepteur.setText("Nom récepteur : *");
         nomRecepteur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(nomRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 160, 20));
 
@@ -102,7 +101,7 @@ public class InterfaceAut extends java.awt.Frame {
         pan.add(texteMailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 330, 20));
 
         duree.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        duree.setText("DurÃ©e de validitÃ© : *");
+        duree.setText("Durée de validité : *");
         duree.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(duree, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, 20));
 
@@ -135,7 +134,7 @@ public class InterfaceAut extends java.awt.Frame {
         pan.add(boutonEnvoyerDemande, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 370, 40));
 
         mailRecepteur1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        mailRecepteur1.setText("Mail rÃ©cepteur : ");
+        mailRecepteur1.setText("Mail récepteur : ");
         mailRecepteur1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(mailRecepteur1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
@@ -176,7 +175,7 @@ public class InterfaceAut extends java.awt.Frame {
         int err = 0;
 
         if (texteEmetteur.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Le champs \"Nom Ã©metteur\" doit Ãªtre rempli!");
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom émetteur\" doit être rempli!");
             err = 1;
         } else {
             em = texteEmetteur.getText();
@@ -184,7 +183,7 @@ public class InterfaceAut extends java.awt.Frame {
         }
 
         if (texteRecepteur.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Le champs \"Nom rÃ©cepteur\" doit Ãªtre rempli!");
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom récepteur\" doit être rempli!");
             err = 1;
         }
 
@@ -199,20 +198,20 @@ public class InterfaceAut extends java.awt.Frame {
             Statement s = setU.ConnectionDB();
             int e = setU.exist(s, mailR);
             if (e != 0) {
-                System.out.println("Utilisateur trouvÃ©");
+                System.out.println("Utilisateur trouvé");
                 if (xmlTools.creerAuth(emetteur, recepteur, dureeV, mailE, mailR, descDmd)) {
-                    JOptionPane.showMessageDialog(null, "Demande crÃ©e avec succÃ¨s");
+                    JOptionPane.showMessageDialog(null, "Demande crée avec succès");
 
-                    setU.ajoutAuth(s, mailE, mailR, dureeV);
+                    setU.ajoutAuth(s, mailE, mailR,descDmd,dureeV);
                     int id = setU.recupID(s, mailE, mailR);
-                    reponse.Recup(id, mailE, mailR);
-                    System.out.print("l'id de lademande " + id);
+                   
+                    System.out.print("l'id de la demande " + id);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Erreur veuillez rÃ©essayer plus tard");
+                    JOptionPane.showMessageDialog(null, "Erreur veuillez réessayer plus tard");
 
                 }
             } else {
-                System.out.println("utilisateur non trouvÃ©");
+                System.out.println("utilisateur non trouvé");
             }
 
         }

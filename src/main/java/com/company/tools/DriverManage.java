@@ -42,7 +42,7 @@ public class DriverManage {
 
     public int exist(Statement s, String mailR) {
         int e = 0;
-        
+
         try {
             ResultSet result = s.executeQuery("SELECT * FROM utilisateur WHERE  mail='" + mailR + "'");
             if (result.next()) {
@@ -59,11 +59,9 @@ public class DriverManage {
     /**
      * **Ajout d'une demande d'authorisation****************
      */
-    public void ajoutAuth(Statement s, String mailE, String mailR, int duree) {
+    public void ajoutAuth(Statement s, String mailE, String mailR, String descrip, int duree) {
         try {
-            String descri = "je veux troquer avec toi";
-
-            int statut = s.executeUpdate("INSERT INTO demande (emetteur, recepteur,descrip,durevalid) VALUES ('" + mailE + "','" + mailR + "','" + descri + "','" + duree + "')");
+            int statut = s.executeUpdate("INSERT INTO demande (emetteur, recepteur,descrip,durevalid) VALUES ('" + mailE + "','" + mailR + "','" + descrip + "','" + duree + "')");
             System.out.println("Demande ajoutée avec succes");
         } catch (SQLException e) {
             System.out.println(e);
@@ -71,33 +69,33 @@ public class DriverManage {
     }
 
     public int ajoutFichier(Statement s, String mailE, String mailR) {
-       int idf=0;
+        int idf = 0;
         try {
-            
-    int statut = s.executeUpdate("INSERT INTO demande (emetteur, recepteur) VALUES ('" + mailE + "','" + mailR + "',)");
-    ResultSet result= s.executeQuery("SELECT id FROM fichier WHERE emetteur='"+mailE+"' AND recepteur='"+mailR+"'");
-    result.next();
-    idf= result.getInt("id");
-     System.out.println("fichier ajouté avec succès");
+
+            int statut = s.executeUpdate("INSERT INTO demande (emetteur, recepteur) VALUES ('" + mailE + "','" + mailR + "',)");
+            ResultSet result = s.executeQuery("SELECT id FROM fichier WHERE emetteur='" + mailE + "' AND recepteur='" + mailR + "'");
+            result.next();
+            idf = result.getInt("id");
+            System.out.println("fichier ajouté avec succès");
         } catch (SQLException e) {
             System.out.println(e);
         }
         return idf;
     }
-    
-    public void ajoutMessage(Statement s,String type, int msgid, int fichierid,int dureev){
-        
+
+    public void ajoutMessage(Statement s, String type, int msgid, int fichierid, int dureev) {
+
     }
+
     // Reponse a la demande d'autorisation
-      public void repAuto(Statement s,String answer){
-     try {
-        int statu = s.executeUpdate("INSERT INTO auto (reponse) VALUES ('"+answer+"')");  
-      System.out.println("!!! REPONSE RECU !!!");
-      }
-  catch (SQLException n){
-      System.out.println(n);
-  }
-      }
+    public void repAuto(Statement s, String answer) {
+        try {
+            int statu = s.executeUpdate("INSERT INTO auto (reponse) VALUES ('" + answer + "')");
+            System.out.println("!!! REPONSE RECU !!!");
+        } catch (SQLException n) {
+            System.out.println(n);
+        }
+    }
 
     public Statement ConnectionDB() {
         try {
