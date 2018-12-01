@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- Description de l'élément fichier -->
+	<xsd:element name="Fichier">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Header"/>
+				<xsd:element ref="Body"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Header -->
+	<xsd:element name="Header">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="FicID" type="xsd:string"/>
+				<xsd:element name="NmIE" type="xsd:string"/>
+				<xsd:element name="NmIR" type="xsd:string"/>
+				<xsd:element name="NumAuto" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="DtOfSgtAuto" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="DureeValidAuto" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="MailDest" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="MailExp" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Descritpion de l'élément Body -->
+	<xsd:element name="Body">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CollMess"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément CollMess -->
+	<xsd:element name="CollMess">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			
+			<!-- Attribut de l'élément CollMess --> 
+			<xsd:attribute name="NbOfTxs" type="xsd:int" use="required"/>
+			
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Message -->
+	<xsd:element name="Message">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Dte" type="xsd:string"/>
+				<xsd:element name="DureeValideMsg" type="xsd:string"/>
+				<xsd:choice>
+					<xsd:element ref="Prop"/>
+					<xsd:element ref="Auth"/>
+					<xsd:element ref="Dmd"/>
+					<xsd:element ref="Accep"/>
+				</xsd:choice>
+			</xsd:sequence>
+			
+		<!-- Attributs de l'élément Message --> 
+		<xsd:attribute name="MsgId" type="xsd:ID" use="required"/>
+		<xsd:attribute name="ReponseA" type="xsd:IDREF" use="optional"/>
+		
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Prop -->
+	<xsd:element name="Prop">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="TitreP" type="xsd:string"/>
+				<xsd:element ref="Offre" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="Demande" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Offre -->
+	<xsd:element name="Offre">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Objet" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Demande -->
+	<xsd:element name="Demande">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Objet" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	<!-- Description de l'élément Objet -->
+	<xsd:element name="Objet">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Type" type="xsd:string"/>
+				<xsd:element ref="Description"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Description -->
+	<xsd:element name="Description">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Parametre" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Parametre -->
+	<xsd:element name="Parametre">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Nom" type="xsd:string"/>
+				<xsd:element name="Valeur" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Auth -->
+	<xsd:element name="Auth">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Rep"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Rep -->
+	<xsd:element name="Rep">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element name="AccAuth" type="xsd:string"/>
+				<xsd:element name="RefAuth" type="xsd:string"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Dmd -->
+	<xsd:element name="Dmd">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element name="DescDmd" type="xsd:string"/>
+				<xsd:element name="DateDebut" type="xsd:string"/>
+				<xsd:element name="DateFin" type="xsd:string"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément Accep-->
+	<xsd:element name="Accep">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element name="MessageValid" type="xsd:string"/>
+				<xsd:element ref="ContreProp"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Description de l'élément ContreProp -->
+	<xsd:element name="ContreProp">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Prop"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+    
+</xsd:schema>		 

@@ -40,19 +40,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton1.setText("Mes demandes ");
-        pan.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, -1));
+        pan.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton2.setText("Mes propostitions");
-        pan.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 170, -1));
+        pan.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 170, -1));
 
         jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton3.setText("Mes autorisations");
-        pan.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 180, -1));
+        pan.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 180, -1));
 
         jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton4.setText("Mes contacts ");
-        pan.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, -1));
+        pan.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 160, -1));
 
         getContentPane().add(pan, java.awt.BorderLayout.CENTER);
 
