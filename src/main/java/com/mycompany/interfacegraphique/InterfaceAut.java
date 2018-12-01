@@ -5,9 +5,12 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.DriverManage;
+
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.io.StringWriter;
+import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -19,7 +22,13 @@ import javax.xml.stream.XMLStreamWriter;
  * @author DELL XPS
  */
 public class InterfaceAut extends java.awt.Frame {
-  static String em;
+
+    static String em;
+    javax.swing.event.ChangeEvent evt;
+    static DriverManage setU = new DriverManage();
+    InterfaceAcc reponse = new InterfaceAcc();
+    JSpinner v = (JSpinner) evt.getSource();
+
     /**
      * Creates new form InterfaceAut
      */
@@ -165,51 +174,66 @@ public class InterfaceAut extends java.awt.Frame {
 
     private void boutonEnvoyerDemandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerDemandeActionPerformed
         int err = 0;
-        
-        
-        if(texteEmetteur.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Nom émetteur\" doit être rempli!");
+
+        if (texteEmetteur.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom émetteur\" doit être rempli!");
+            err = 1;
+        } else {
+            em = texteEmetteur.getText();
+
+        }
+
+        if (texteRecepteur.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom récepteur\" doit être rempli!");
             err = 1;
         }
-        else {
-       em = texteEmetteur.getText();
-        
-        }
-        
-        if(texteRecepteur.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Nom récepteur\" doit être rempli!");
-            err = 1;
-        }
-        
-     
-        if(err != 1){
+
+        if (err != 1) {
             XmlTools xmlTools = new XmlTools();
-            if(xmlTools.creerAuth(texteEmetteur.getText(), texteRecepteur.getText(), (Integer)choixNbJour.getValue(),texteMailEmetteur.getText(), textMailRecepteur.getText(), texteDescDemande.getText()))
-                JOptionPane.showMessageDialog(null,"Demande cree avec succes");
-            else
-                JOptionPane.showMessageDialog(null,"Erreur veuillez resseayer plus tard");
-                
-        } 
+            String emetteur = texteEmetteur.getText();
+            String mailE = texteMailEmetteur.getText();
+            String mailR = textMailRecepteur.getText();
+            String recepteur = texteRecepteur.getText();
+            int dureeV = (Integer) v.getValue();
+            String descDmd = texteDescDemande.getText();
+            Statement s = setU.ConnectionDB();
+            int e = setU.exist(s, mailR);
+            if (e != 0) {
+                System.out.println("Utilisateur trouvé");
+                if (xmlTools.creerAuth(emetteur, recepteur, dureeV, mailE, mailR, descDmd)) {
+                    JOptionPane.showMessageDialog(null, "Demande crée avec succès");
+
+                    setU.ajoutAuth(s, mailE, mailR, dureeV);
+                    int id = setU.recupID(s, mailE, mailR);
+                    reponse.Recup(id, mailE, mailR);
+                    System.out.print("l'id de lademande " + id);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur veuillez réessayer plus tard");
+
+                }
+            } else {
+                System.out.println("utilisateur non trouvé");
+            }
+
+        }
     }//GEN-LAST:event_boutonEnvoyerDemandeActionPerformed
 
     private void choixNbJourStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_choixNbJourStateChanged
-        JSpinner s = (JSpinner) evt.getSource();
-         
-         int value = (Integer) s.getValue();
-         
-         if (value < 1){
-             choixNbJour.setValue(1);
-         }
+
+        int value = (Integer) v.getValue();
+
+        if (value < 1) {
+            choixNbJour.setValue(1);
+        }
     }//GEN-LAST:event_choixNbJourStateChanged
 
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new InterfaceAut().setVisible(true);
-            
+
         });
     }
 

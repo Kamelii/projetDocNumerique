@@ -42,7 +42,7 @@ public class DriverManage {
 
     public int exist(Statement s, String mailR) {
         int e = 0;
-        boolean b;
+        
         try {
             ResultSet result = s.executeQuery("SELECT * FROM utilisateur WHERE  mail='" + mailR + "'");
             if (result.next()) {
@@ -57,7 +57,7 @@ public class DriverManage {
     }
 
     /**
-     * **Ajout d'une demande s'authorisation****************
+     * **Ajout d'une demande d'authorisation****************
      */
     public void ajoutAuth(Statement s, String mailE, String mailR, int duree) {
         try {

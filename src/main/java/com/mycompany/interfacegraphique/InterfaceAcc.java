@@ -6,6 +6,7 @@
 package com.mycompany.interfacegraphique;
 
 import com.company.tools.XMLParser;
+
 /**
  *
  * @author DELL XPS
@@ -90,12 +91,17 @@ public class InterfaceAcc extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
-        
+
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
     private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
         //TODO Mettre la fonction qui crée le fichier xml du refus de l'autorisation
     }//GEN-LAST:event_boutonRefuserActionPerformed
+    public void Recup(int id, String emetteur, String recepteur) {
+        int iddemande = id;
+        String mailE = emetteur;
+        String mailR = recepteur;
+    }
 
     /**
      * @param args the command line arguments
@@ -105,7 +111,7 @@ public class InterfaceAcc extends java.awt.Frame {
             InterfaceAcc ia = new InterfaceAcc();
             XMLParser.AfficherAcc("xml.xml");
             ia.setVisible(true);
-                    
+
         });
     }
 
