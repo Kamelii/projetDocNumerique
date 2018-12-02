@@ -424,7 +424,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
     private void ajouterParametreDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterParametreDesireActionPerformed
         oDesire.addParam(1);
-
+        
         boutonValiderProp.setLocation(1050, posYBouton + Parametres.sizeYParam);
         boutonValiderProp.setSize(500, 40);
 
