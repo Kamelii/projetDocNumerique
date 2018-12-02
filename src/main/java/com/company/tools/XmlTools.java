@@ -349,10 +349,7 @@ public class XmlTools {
                 xMLStreamWriter.writeCharacters(InterfaceCreaProp.texteTypeObjPropose.getText());
                 xMLStreamWriter.writeEndElement();
                 
-                xMLStreamWriter.writeStartElement("Description");
-                xMLStreamWriter.writeCharacters(InterfaceCreaProp.texteDescriptObjPropose.getText());
-                xMLStreamWriter.writeEndElement();
-                
+
                 xMLStreamWriter.writeEndElement();
                 xMLStreamWriter.writeEndElement();
 
@@ -366,9 +363,7 @@ public class XmlTools {
                 xMLStreamWriter.writeCharacters(InterfaceCreaProp.texteTypeObjDesire.getText());
                 xMLStreamWriter.writeEndElement();
                 
-                xMLStreamWriter.writeStartElement("Description");
-                xMLStreamWriter.writeCharacters(InterfaceCreaProp.texteDescriptObjDesire.getText());
-                xMLStreamWriter.writeEndElement();
+
                 
                 xMLStreamWriter.writeEndElement();
                 xMLStreamWriter.writeEndElement();

@@ -5,14 +5,18 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.Objet;
 import com.company.tools.XMLParser;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author qbiss
  */
 public class InterfaceAffichProp extends java.awt.Frame {
-
+    public static List<Objet> lo = new ArrayList<>();
+    public static int nbObjet = 0;
     /**
      * Creates new form InterfaceAffichProp
      */
