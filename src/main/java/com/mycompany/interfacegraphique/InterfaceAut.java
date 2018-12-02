@@ -10,6 +10,9 @@ import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.io.StringWriter;
 import java.sql.Statement;
+import static java.time.Instant.now;
+import static java.time.LocalDateTime.now;
+import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -26,7 +29,10 @@ public class InterfaceAut extends java.awt.Frame {
     javax.swing.event.ChangeEvent evt;
     static DriverManage setU = new DriverManage();
     InterfaceAcc reponse = new InterfaceAcc();
-    JSpinner v = (JSpinner) evt.getSource();
+
+    String type = "dmdAuth";
+    int dmd;
+    int value;
 
     /**
      * Creates new form InterfaceAut
@@ -75,12 +81,12 @@ public class InterfaceAut extends java.awt.Frame {
         pan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         mailEmetteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        mailEmetteur.setText("Mail émetteur :");
+        mailEmetteur.setText("Mail Ã©metteur :");
         mailEmetteur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(mailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 160, 20));
 
         nomEmetteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        nomEmetteur.setText("Nom émetteur : *");
+        nomEmetteur.setText("Nom Ã©metteur : *");
         nomEmetteur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(nomEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 160, 20));
 
@@ -92,16 +98,21 @@ public class InterfaceAut extends java.awt.Frame {
         pan.add(titreFenetreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 500, 50));
 
         nomRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        nomRecepteur.setText("Nom récepteur : *");
+        nomRecepteur.setText("Nom rÃ©cepteur : *");
         nomRecepteur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(nomRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 160, 20));
 
         texteMailEmetteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteMailEmetteur.setNextFocusableComponent(textMailRecepteur);
+        texteMailEmetteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texteMailEmetteurActionPerformed(evt);
+            }
+        });
         pan.add(texteMailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 330, 20));
 
         duree.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        duree.setText("Durée de validité : *");
+        duree.setText("DurÃ©e de validitÃ© : *");
         duree.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(duree, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, 20));
 
@@ -134,7 +145,7 @@ public class InterfaceAut extends java.awt.Frame {
         pan.add(boutonEnvoyerDemande, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 370, 40));
 
         mailRecepteur1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        mailRecepteur1.setText("Mail récepteur : ");
+        mailRecepteur1.setText("Mail rÃ©cepteur : ");
         mailRecepteur1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pan.add(mailRecepteur1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
@@ -175,7 +186,7 @@ public class InterfaceAut extends java.awt.Frame {
         int err = 0;
 
         if (texteEmetteur.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Le champs \"Nom émetteur\" doit être rempli!");
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom Ã©metteur\" doit Ãªtre rempli!");
             err = 1;
         } else {
             em = texteEmetteur.getText();
@@ -183,7 +194,7 @@ public class InterfaceAut extends java.awt.Frame {
         }
 
         if (texteRecepteur.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Le champs \"Nom récepteur\" doit être rempli!");
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom rÃ©cepteur\" doit Ãªtre rempli!");
             err = 1;
         }
 
@@ -193,38 +204,46 @@ public class InterfaceAut extends java.awt.Frame {
             String mailE = texteMailEmetteur.getText();
             String mailR = textMailRecepteur.getText();
             String recepteur = texteRecepteur.getText();
-            int dureeV = (Integer) v.getValue();
+            int dureeV = value;
             String descDmd = texteDescDemande.getText();
+            Date now = new Date();
+            String date = now.toString();
+            int msgid = 4;
             Statement s = setU.ConnectionDB();
             int e = setU.exist(s, mailR);
             if (e != 0) {
-                System.out.println("Utilisateur trouvé");
+                System.out.println("Utilisateur trouvÃ©");
                 if (xmlTools.creerAuth(emetteur, recepteur, dureeV, mailE, mailR, descDmd)) {
-                    JOptionPane.showMessageDialog(null, "Demande crée avec succès");
+                    JOptionPane.showMessageDialog(null, "Demande crÃ©e avec succÃ¨s");
 
-                    setU.ajoutAuth(s, mailE, mailR,descDmd,dureeV);
+                    setU.ajoutAuth(s, mailE, mailR, descDmd, dureeV);
                     int id = setU.recupID(s, mailE, mailR);
-                   
+                    //setU.ajoutFichier(s,mailE,mailR);
+                    setU.ajoutMessage(s, type, msgid, id, dmd, dureeV, date);
                     System.out.print("l'id de la demande " + id);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Erreur veuillez réessayer plus tard");
+                    JOptionPane.showMessageDialog(null, "Erreur veuillez rÃ©essayer plus tard");
 
                 }
             } else {
-                System.out.println("utilisateur non trouvé");
+                System.out.println("utilisateur non trouvÃ©");
             }
 
         }
     }//GEN-LAST:event_boutonEnvoyerDemandeActionPerformed
 
     private void choixNbJourStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_choixNbJourStateChanged
-
-        int value = (Integer) v.getValue();
+        JSpinner v = (JSpinner) evt.getSource();
+        value = (Integer) v.getValue();
 
         if (value < 1) {
             choixNbJour.setValue(1);
         }
     }//GEN-LAST:event_choixNbJourStateChanged
+
+    private void texteMailEmetteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteMailEmetteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texteMailEmetteurActionPerformed
 
     /**
      * @param args the command line arguments
