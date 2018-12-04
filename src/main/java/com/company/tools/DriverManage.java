@@ -61,7 +61,7 @@ public class DriverManage {
      */
     public void ajoutAuth(Statement s, String mailE, String mailR, String descrip, int duree) {
         try {
-            int statut = s.executeUpdate("INSERT INTO demande (emetteur, recepteur,descrip,durevalid) VALUES ('" + mailE + "','" + mailR + "','" +descrip+ "','" + duree + "')");
+            int statut = s.executeUpdate("INSERT INTO demande (emetteur, recepteur,descrip,durevalid) VALUES ('" + mailE + "','" + mailR + "','" + descrip + "','" + duree + "')");
             System.out.println("Demande ajoutée avec succes");
         } catch (SQLException e) {
             System.out.println(e);
@@ -73,17 +73,17 @@ public class DriverManage {
         int idE;
         int idR;
         try {
-            ResultSet result= s.executeQuery("SELECT id FROM utilisateur WHERE mail='"+mailE+"'");
+            ResultSet result = s.executeQuery("SELECT id FROM utilisateur WHERE mail='" + mailE + "'");
             result.next();
-            idE= result.getInt("id");
-            
-            ResultSet result2 = s.executeQuery("SELECT id FROM utilisateur WHERE mail='"+mailR+"'");
+            idE = result.getInt("id");
+
+            ResultSet result2 = s.executeQuery("SELECT id FROM utilisateur WHERE mail='" + mailR + "'");
             result2.next();
-            idR= result2.getInt("id");
-            
-            int statut = s.executeUpdate("INSERT INTO fichier(emetteur, recepteur) VALUES ('"+idE+"','"+idR+"')");
-            
-            ResultSet result3 = s.executeQuery("SELECT id FROM fichier WHERE emetteur='"+idE+"' AND recepteur='"+idR+"'");
+            idR = result2.getInt("id");
+
+            int statut = s.executeUpdate("INSERT INTO fichier(emetteur, recepteur) VALUES ('" + idE + "','" + idR + "')");
+
+            ResultSet result3 = s.executeQuery("SELECT id FROM fichier WHERE emetteur='" + idE + "' AND recepteur='" + idR + "'");
             result3.next();
             idf = result3.getInt("id");
             System.out.println("fichier ajouté avec succès");
@@ -92,36 +92,50 @@ public class DriverManage {
         }
         return idf;
     }
-    public String verifieReponseDMD(Statement s,String mailE, String mailR){
-        String reponse= null;
-    try{
-        ResultSet result= s.executeQuery("SELECT id FROM demande WHERE mailE='"+mailE+"' AND mailR='"+mailR+"'");
-        result.next();
-        int idDmd= result.getInt("id");
-        if (!result.next()){
-            reponse="Vous n'avez pas de demande d'autorisation de troc ";
-          
-        }else{
-        ResultSet result2= s.executeQuery("SELECT reponse FROM auto WHERE iddemnde='"+idDmd+"'");
-        result2.next();
-         reponse= result2.getString("reponse");
-      
+
+    public String verifieReponseDMD(Statement s, String mailE, String mailR) {
+        String reponse = null;
+        int idDmd=0;
+        try {
+            ResultSet result = s.executeQuery("SELECT id FROM demande WHERE emetteur='" + mailE + "' AND recepteur='" + mailR + "'");
+            result.next();
+             idDmd = result.getInt("id");
+            if (idDmd==0) {
+                reponse = "Vous n'avez pas de demande d'autorisation de troc ";
+
+            } else {
+                ResultSet result2 = s.executeQuery("SELECT reponse FROM auto WHERE iddemde='" + idDmd + "'");
+                result2.next();
+                reponse = result2.getString("reponse");
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-        
+        return reponse;
+    }
+
+    public void ajoutMessage(Statement s, String type, int msgid, int fichierid, int typemsg, int dureev, String dte) {
+        try {
+            int statut = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,'" + typemsg + "',0,0,'" + dureev + "','" + dte + "')");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public int ajoutPropo(Statement s, String titre, String type) {
+        int idPropo=0;
+    try{
+    int statut=s.executeUpdate("INSERT INTO propo (titre,type) VALUES ('"+titre+"', '"+type+"')");
+    
+    ResultSet result=s.executeQuery("SELECT id FROM propo WHERE titre='"+titre+"' AND type='"+type+"'");
+    result.next();
+    idPropo= result.getInt("id");
     }catch(SQLException e){
     System.out.println(e);
     }
-        return reponse;
-    }
-    
-    
-
-    public void ajoutMessage(Statement s,String type, int msgid, int fichierid,int typemsg, int dureev,String dte){
-        try{
-        int statut = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" +type + "','" + msgid + "','" +fichierid+ "',0,'" + typemsg+ "',0,0,'" + dureev + "','" +dte+ "')");
-        }catch(SQLException e){
-            System.out.println(e);
-        }   
+    return idPropo;
     }
 
     // Reponse a la demande d'autorisation

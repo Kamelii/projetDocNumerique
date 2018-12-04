@@ -5,12 +5,18 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.Objet;
+import com.company.tools.XMLParser;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author qbiss
  */
 public class InterfaceAffichProp extends java.awt.Frame {
-
+    public static List<Objet> lo = new ArrayList<>();
+    public static int nbObjet = 0;
     /**
      * Creates new form InterfaceAffichProp
      */
@@ -204,7 +210,9 @@ public class InterfaceAffichProp extends java.awt.Frame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new InterfaceAffichProp().setVisible(true);
+            InterfaceAffichProp ia = new InterfaceAffichProp();
+            XMLParser.AfficherProp("xml.xml");
+            ia.setVisible(true);
         });
     }
 
@@ -217,16 +225,16 @@ public class InterfaceAffichProp extends java.awt.Frame {
     private javax.swing.JLabel descriptObjDesire;
     private javax.swing.JLabel descriptObjPropose;
     private javax.swing.JLabel desire;
-    private javax.swing.JLabel duree;
+    public static javax.swing.JLabel duree;
     private javax.swing.JLabel laProposition;
-    private javax.swing.JLabel mailEmetteur;
-    private javax.swing.JLabel mailRecepteur;
-    private javax.swing.JLabel nomEmetteur;
-    private javax.swing.JLabel nomRecepteur;
+    public static javax.swing.JLabel mailEmetteur;
+    public static javax.swing.JLabel mailRecepteur;
+    public static javax.swing.JLabel nomEmetteur;
+    public static javax.swing.JLabel nomRecepteur;
     private javax.swing.JPanel pan;
     private javax.swing.JLabel proposition;
     private javax.swing.JLabel titreFenetreAffichProp;
-    private javax.swing.JLabel titreProp;
+    public static javax.swing.JLabel titreProp;
     private javax.swing.JLabel typeObjDesire;
     private javax.swing.JLabel typeObjPropose;
     // End of variables declaration//GEN-END:variables

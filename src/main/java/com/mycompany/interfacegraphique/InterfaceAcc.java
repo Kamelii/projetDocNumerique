@@ -5,10 +5,15 @@
  */
 package com.mycompany.interfacegraphique;
 
+
 import com.company.tools.DriverManage;
 import static com.mycompany.interfacegraphique.InterfaceAut.setU;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+
+
+import com.company.tools.XMLParser;
+import com.company.tools.XmlTools;
 
 public class InterfaceAcc extends java.awt.Frame {
 
@@ -89,6 +94,7 @@ public class InterfaceAcc extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
+
         String acc = "Accepte";
         Statement s = setR.ConnectionDB();
         setR.repAuto(s, acc);
@@ -100,11 +106,13 @@ public class InterfaceAcc extends java.awt.Frame {
         Statement s = setR.ConnectionDB();
         setR.repAuto(s, ref);
         JOptionPane.showMessageDialog(null, "Demande Refusée");
-    }//GEN-LAST:event_boutonRefuserActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+         XmlTools xmlTools = new XmlTools();
+         
+        xmlTools.accepterAuth("xml.xml");
+    }//GEN-LAST:event_boutonAccepterActionPerformed
+
+   
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             Statement s = setU.ConnectionDB();

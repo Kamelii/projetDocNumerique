@@ -5,8 +5,16 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.DriverManage;
+import com.company.tools.Objet;
+import com.company.tools.Parametres;
+import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -16,14 +24,22 @@ import javax.swing.JSpinner;
  * @author qbiss
  */
 public class InterfaceCreaProp extends java.awt.Frame {
-    public static int estCheckDesire = 0,estCheckPropose = 0;
+
+    public static int estCheckDesire = 0, estCheckPropose = 0;
+    public static ArrayList<Objet> lo = new ArrayList<>();
+    public static int nbObjet = 0;
+    public static int sizeY = 395;
+    public static int posYBouton = 280;
+    public static InterfaceCreaProp icp = new InterfaceCreaProp();
+    public static Objet oProp, oDesire;
+
     /**
      * Creates new form InterfaceAut
      */
     public InterfaceCreaProp() {
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,21 +67,23 @@ public class InterfaceCreaProp extends java.awt.Frame {
         typeObjPropose = new javax.swing.JLabel();
         texteTypeObjPropose = new javax.swing.JTextField();
         descriptObjPropose = new javax.swing.JLabel();
-        scrollDescObjPropose = new javax.swing.JScrollPane();
-        texteDescriptObjPropose = new javax.swing.JTextPane();
         jeDesire = new javax.swing.JLabel();
         typeObjDesire = new javax.swing.JLabel();
         texteTypeObjDesire = new javax.swing.JTextField();
-        descriptObjDesire = new javax.swing.JLabel();
-        scrollDescObjDesire = new javax.swing.JScrollPane();
-        texteDescriptObjDesire = new javax.swing.JTextPane();
         checkPasObjPropose = new javax.swing.JCheckBox();
         checkPasObjDesire = new javax.swing.JCheckBox();
         boutonValiderProp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         choixNbJour = new javax.swing.JSpinner();
+        descriptObjPropose1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        ajouterParametreProposition = new javax.swing.JButton();
+        ajouterParametreDesire = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        boutonSupprimerparamDesire = new javax.swing.JButton();
+        boutonSupprimerparamProp1 = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(535, 915));
+        setPreferredSize(new java.awt.Dimension(1570, 395));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -73,6 +91,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         });
 
         pan.setMinimumSize(new java.awt.Dimension(1200, 1200));
+        pan.setPreferredSize(new java.awt.Dimension(1700, 870));
         pan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titreFenetreProp.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -146,66 +165,45 @@ public class InterfaceCreaProp extends java.awt.Frame {
         maProposition.setMaximumSize(new java.awt.Dimension(110, 30));
         maProposition.setMinimumSize(new java.awt.Dimension(110, 30));
         maProposition.setPreferredSize(new java.awt.Dimension(110, 30));
-        pan.add(maProposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 310, 480, -1));
+        pan.add(maProposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 1020, -1));
 
         titreProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         titreProp.setText("Titre de ma proposition : *");
         titreProp.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(titreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+        pan.add(titreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
 
         texteTitreProp.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteTitreProp.setNextFocusableComponent(texteTypeObjPropose);
-        pan.add(texteTitreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 310, -1));
+        pan.add(texteTitreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, 810, -1));
 
         jePropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jePropose.setText("Je propose : *");
-        pan.add(jePropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 180, 20));
+        pan.add(jePropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, 180, 20));
 
         typeObjPropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         typeObjPropose.setText("Type de l'objet :");
         typeObjPropose.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(typeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 170, -1));
+        pan.add(typeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 170, -1));
 
         texteTypeObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        texteTypeObjPropose.setNextFocusableComponent(texteDescriptObjPropose);
-        pan.add(texteTypeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 420, 320, -1));
+        pan.add(texteTypeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 320, -1));
 
         descriptObjPropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        descriptObjPropose.setText("Description de l'objet : ");
+        descriptObjPropose.setText("Description de l'objet (ex : taille, couleur, prix,...) :");
         descriptObjPropose.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(descriptObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 170, -1));
-
-        texteDescriptObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        texteDescriptObjPropose.setAutoscrolls(false);
-        texteDescriptObjPropose.setNextFocusableComponent(texteTypeObjDesire);
-        scrollDescObjPropose.setViewportView(texteDescriptObjPropose);
-
-        pan.add(scrollDescObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 320, 130));
+        pan.add(descriptObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 200, 360, -1));
 
         jeDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jeDesire.setText("Je désire : *");
-        pan.add(jeDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, -1, -1));
+        pan.add(jeDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 140, -1, -1));
 
         typeObjDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         typeObjDesire.setText("Type de l'objet :");
         typeObjDesire.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 650, 170, -1));
+        pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, 170, -1));
 
         texteTypeObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        texteTypeObjDesire.setNextFocusableComponent(texteDescriptObjDesire);
-        pan.add(texteTypeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 650, 320, -1));
-
-        descriptObjDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        descriptObjDesire.setText("Description de l'objet : ");
-        descriptObjDesire.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(descriptObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 170, -1));
-
-        texteDescriptObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        texteDescriptObjDesire.setAutoscrolls(false);
-        texteDescriptObjDesire.setNextFocusableComponent(boutonValiderProp);
-        scrollDescObjDesire.setViewportView(texteDescriptObjDesire);
-
-        pan.add(scrollDescObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 690, 320, 130));
+        pan.add(texteTypeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 170, 320, -1));
 
         checkPasObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         checkPasObjPropose.setText("Je ne veux pas proposer d'objet");
@@ -214,7 +212,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
                 checkPasObjProposeActionPerformed(evt);
             }
         });
-        pan.add(checkPasObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 320, 40));
+        pan.add(checkPasObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 130, 320, 40));
 
         checkPasObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         checkPasObjDesire.setText("Je désire aucun objet");
@@ -223,7 +221,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
                 checkPasObjDesireActionPerformed(evt);
             }
         });
-        pan.add(checkPasObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 610, 320, 40));
+        pan.add(checkPasObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 130, 320, 40));
 
         boutonValiderProp.setBackground(new java.awt.Color(102, 204, 255));
         boutonValiderProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -237,7 +235,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
                 boutonValiderPropActionPerformed(evt);
             }
         });
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 830, 500, 40));
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 310, 500, 40));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Jour(s)");
@@ -253,7 +251,56 @@ public class InterfaceCreaProp extends java.awt.Frame {
         });
         pan.add(choixNbJour, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 50, -1));
 
-        add(pan, java.awt.BorderLayout.CENTER);
+        descriptObjPropose1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        descriptObjPropose1.setText("Description de l'objet  :");
+        descriptObjPropose1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        pan.add(descriptObjPropose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 360, -1));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setText("Veuillez ajouter différents paramètres de l'objet (Taille,Couleur,Prix,..) :");
+        pan.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 230, -1, -1));
+
+        ajouterParametreProposition.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ajouterParametreProposition.setText("Ajouter un paramètre");
+        ajouterParametreProposition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterParametrePropositionActionPerformed(evt);
+            }
+        });
+        pan.add(ajouterParametreProposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, 170, -1));
+
+        ajouterParametreDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ajouterParametreDesire.setText("Ajouter un paramètre");
+        ajouterParametreDesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterParametreDesireActionPerformed(evt);
+            }
+        });
+        pan.add(ajouterParametreDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 250, 170, -1));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("Veuillez ajouter différents paramètres de l'objet (Taille,Couleur,Prix,..) :");
+        pan.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, -1, -1));
+
+        boutonSupprimerparamDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        boutonSupprimerparamDesire.setText("Supprimer paramètre");
+        boutonSupprimerparamDesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonSupprimerparamDesireActionPerformed(evt);
+            }
+        });
+        pan.add(boutonSupprimerparamDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 280, -1, -1));
+
+        boutonSupprimerparamProp1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        boutonSupprimerparamProp1.setText("Supprimer paramètre");
+        boutonSupprimerparamProp1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonSupprimerparamProp1ActionPerformed(evt);
+            }
+        });
+        pan.add(boutonSupprimerparamProp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 280, -1, -1));
+
+        add(pan, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -267,114 +314,119 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
     private void checkPasObjProposeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPasObjProposeActionPerformed
         JCheckBox cb = (JCheckBox) evt.getSource();
-        
+
         boolean isSel = cb.isSelected();
-        
-        if(isSel){
-            texteDescriptObjPropose.setFocusable(false);
+
+        if (isSel) {
             texteTypeObjPropose.setFocusable(false);
-            texteDescriptObjPropose.setText("");
             texteTypeObjPropose.setText("");
-            texteDescriptObjPropose.setBackground(new Color(230,230,230));
-            texteTypeObjPropose.setBackground(new Color(230,230,230));
-            
+            texteTypeObjPropose.setBackground(new Color(230, 230, 230));
+
             estCheckPropose = 1;
-            
+
             pan.repaint();
-        }
-        else{
-            texteDescriptObjPropose.setFocusable(true);
+        } else {
             texteTypeObjPropose.setFocusable(true);
-            texteDescriptObjPropose.setBackground(new Color(255,255,255));
-            texteTypeObjPropose.setBackground(new Color(255,255,255));
-            
+            texteTypeObjPropose.setBackground(new Color(255, 255, 255));
+
             estCheckPropose = 0;
-            
+
             pan.repaint();
         }
     }//GEN-LAST:event_checkPasObjProposeActionPerformed
 
     private void checkPasObjDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPasObjDesireActionPerformed
         JCheckBox cb = (JCheckBox) evt.getSource();
-        
+
         boolean isSel = cb.isSelected();
-        
-        if(isSel){
-            texteDescriptObjDesire.setFocusable(false);
+
+        if (isSel) {
             texteTypeObjDesire.setFocusable(false);
-            texteDescriptObjDesire.setText("");
             texteTypeObjDesire.setText("");
-            texteDescriptObjDesire.setBackground(new Color(230,230,230));
-            texteTypeObjDesire.setBackground(new Color(230,230,230));
-            
+            texteTypeObjDesire.setBackground(new Color(230, 230, 230));
+
             estCheckDesire = 1;
-            
+
             pan.repaint();
-        }
-        else{
-            texteDescriptObjDesire.setFocusable(true);
+        } else {
             texteTypeObjDesire.setFocusable(true);
-            texteDescriptObjDesire.setBackground(new Color(255,255,255));
-            texteTypeObjDesire.setBackground(new Color(255,255,255));
-            
+            texteTypeObjDesire.setBackground(new Color(255, 255, 255));
+
             estCheckDesire = 0;
-            
+
             pan.repaint();
         }
-        
+
     }//GEN-LAST:event_checkPasObjDesireActionPerformed
 
     private void boutonValiderPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonValiderPropActionPerformed
         int err = 0;
-        
-        if(texteEmetteur.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Nom émetteur\" doit être rempli!");
+
+        if (texteEmetteur.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom émetteur\" doit être rempli!");
             err = 1;
         }
-        
-        if(texteRecepteur.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Nom récepteur\" doit être rempli!");
+
+        if (texteRecepteur.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom récepteur\" doit être rempli!");
             err = 1;
         }
-        
-        
-        if(texteTitreProp.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Titre de ma proposition\" doit être rempli!");
+
+        if (texteTitreProp.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Titre de ma proposition\" doit être rempli!");
             err = 1;
         }
-        
-        
-        if(estCheckPropose == 0){
-            if(texteTypeObjPropose.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Le champs \"Type de l'objet\" de la section \"Je propose :\" doit être rempli!");
+
+        if (estCheckPropose == 0) {
+            if (texteTypeObjPropose.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Le champs \"Type de l'objet\" de la section \"Je propose :\" doit être rempli!");
                 err = 1;
             }
-            
-            if(texteDescriptObjPropose.getText().isEmpty()){
-                 JOptionPane.showMessageDialog(null,"Le champs \"Description de l'objet\" de la section \"Je propose :\" doit être rempli!");
-                 err = 1;
-            }
         }
-        
-        if(estCheckDesire == 0){
-            if(texteTypeObjDesire.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Le champs \"Type de l'objet\" de la section \"Je désire :\" doit être rempli!");
+
+        if (estCheckDesire == 0) {
+            if (texteTypeObjDesire.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Le champs \"Type de l'objet\" de la section \"Je désire :\" doit être rempli!");
                 err = 1;
             }
-            
-            if(texteDescriptObjDesire.getText().isEmpty()){
-                 JOptionPane.showMessageDialog(null,"Le champs \"Description de l'objet\" de la section \"Je désire :\" doit être rempli!");
-                 err = 1;
-            }
         }
-        
-        if(err != 1){
+
+        if (err != 1) {
             XmlTools xmlTools = new XmlTools();
-            if(xmlTools.creerProp(texteEmetteur.getText(), texteRecepteur.getText(), (Integer)choixNbJour.getValue(),texteMailEmetteur.getText(), textMailRecepteur.getText(),texteTitreProp.getText()))
-                JOptionPane.showMessageDialog(null,"Demande cree avec succes");
-            else
-                JOptionPane.showMessageDialog(null,"Erreur veuillez resseayer plus tard");
-                
+
+            DriverManage setFic = new DriverManage();
+            Statement s = setFic.ConnectionDB();
+            String emetteur = texteEmetteur.getText();
+            String mailE = texteMailEmetteur.getText();
+            String mailR = textMailRecepteur.getText();
+            String recepteur = texteRecepteur.getText();
+            int dureeV = (Integer) choixNbJour.getValue();
+            Date now = new Date();
+            String date = now.toString();
+            String xml = "xml.xml";
+            String type = "dmndePropo";
+            String titre = texteTitreProp.getText();
+            String reponse = setFic.verifieReponseDMD(s, mailE, mailR);
+            
+            if (reponse.equals("Accepte")) {
+                if (xmlTools.creerProp(emetteur, recepteur, dureeV, mailE, mailR, titre)) {
+                    int idFic = setFic.ajoutFichier(s, mailE, mailR);
+                    int idPropo = setFic.ajoutPropo(s, titre, type);
+                    int msgId = XMLParser.recupererIdMsg(xml);
+                    setFic.ajoutMessage(s, type, msgId, idFic, idPropo, dureeV, date);
+                    JOptionPane.showMessageDialog(null, "Proposition crée avec succes");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur veuillez resseayer plus tard");
+                }
+
+            } else {
+                if (reponse.equals("Refuse")) {
+                    System.out.println(mailR + "n'a pas accepté votre demande de troc");
+                } else {
+                    System.out.println(reponse);
+                }
+            }
+
         }
     }//GEN-LAST:event_boutonValiderPropActionPerformed
 
@@ -383,31 +435,119 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         int value = (Integer) s.getValue();
 
-        if (value < 1){
+        if (value < 1) {
             choixNbJour.setValue(1);
         }
     }//GEN-LAST:event_choixNbJourStateChanged
+
+    private void ajouterParametrePropositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterParametrePropositionActionPerformed
+
+        oProp.addParam(0);
+
+        boutonValiderProp.setLocation(1050, posYBouton + Parametres.sizeYParam);
+        boutonValiderProp.setSize(500, 40);
+
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton + Parametres.sizeYParam, 500, 40));
+
+        Dimension d = new Dimension(1570, sizeY);
+        icp.setSize(1570, sizeY + Parametres.sizeYParam);
+        icp.setPreferredSize(d);
+        pan.setPreferredSize(d);
+        posYBouton += Parametres.sizeYParam;
+        sizeY += Parametres.sizeYParam;
+
+        repaint();
+    }//GEN-LAST:event_ajouterParametrePropositionActionPerformed
+
+    private void ajouterParametreDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterParametreDesireActionPerformed
+        oDesire.addParam(1);
+
+        boutonValiderProp.setLocation(1050, posYBouton + Parametres.sizeYParam);
+        boutonValiderProp.setSize(500, 40);
+
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton + Parametres.sizeYParam, 500, 40));
+
+        Dimension d = new Dimension(1570, sizeY);
+        icp.setSize(1570, sizeY + Parametres.sizeYParam);
+        icp.setPreferredSize(d);
+        pan.setPreferredSize(d);
+        posYBouton += Parametres.sizeYParam;
+        sizeY += Parametres.sizeYParam;
+
+        repaint();
+    }//GEN-LAST:event_ajouterParametreDesireActionPerformed
+
+    private void boutonSupprimerparamProp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerparamProp1ActionPerformed
+        oProp.deleteParam(0);
+
+        boutonValiderProp.setLocation(1050, posYBouton - Parametres.sizeYParam);
+        boutonValiderProp.setSize(500, 40);
+
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton - Parametres.sizeYParam, 500, 40));
+
+        Dimension d = new Dimension(1570, sizeY);
+        icp.setSize(1570, sizeY - Parametres.sizeYParam - 10);
+        icp.setPreferredSize(d);
+        pan.setPreferredSize(d);
+
+        if (oProp.nbParam - 3 > 0) {
+            posYBouton -= Parametres.sizeYParam;
+            sizeY -= Parametres.sizeYParam;
+        }
+
+        repaint();
+
+    }//GEN-LAST:event_boutonSupprimerparamProp1ActionPerformed
+
+    private void boutonSupprimerparamDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerparamDesireActionPerformed
+        oDesire.deleteParam(1);
+
+        boutonValiderProp.setLocation(1050, posYBouton - Parametres.sizeYParam);
+        boutonValiderProp.setSize(500, 40);
+
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton - Parametres.sizeYParam, 500, 40));
+
+        Dimension d = new Dimension(1570, sizeY);
+        icp.setSize(1570, sizeY - Parametres.sizeYParam - 10);
+        icp.setPreferredSize(d);
+        pan.setPreferredSize(d);
+
+        if (oDesire.nbParam - 3 > 0) {
+            posYBouton -= Parametres.sizeYParam;
+            sizeY -= Parametres.sizeYParam;
+        }
+
+        repaint();
+    }//GEN-LAST:event_boutonSupprimerparamDesireActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new InterfaceCreaProp().setVisible(true);
+            oProp = new Objet(0);
+            oDesire = new Objet(1);
+            icp.setVisible(true);
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton boutonValiderProp;
+    private javax.swing.JButton ajouterParametreDesire;
+    private javax.swing.JButton ajouterParametreProposition;
+    private javax.swing.JButton boutonSupprimerparamDesire;
+    private javax.swing.JButton boutonSupprimerparamProp1;
+    public static javax.swing.JButton boutonValiderProp;
     private javax.swing.JCheckBox checkPasObjDesire;
     private javax.swing.JCheckBox checkPasObjPropose;
     private javax.swing.JSpinner choixNbJour;
     private javax.swing.JLabel coordonnees;
-    private javax.swing.JLabel descriptObjDesire;
     private javax.swing.JLabel descriptObjPropose;
+    private javax.swing.JLabel descriptObjPropose1;
     private javax.swing.JLabel duree;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jeDesire;
     private javax.swing.JLabel jePropose;
     private javax.swing.JLabel maProposition;
@@ -415,12 +555,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
     private javax.swing.JLabel mailRecepteur;
     private javax.swing.JLabel nomEmetteur;
     private javax.swing.JLabel nomRecepteur;
-    private javax.swing.JPanel pan;
-    private javax.swing.JScrollPane scrollDescObjDesire;
-    private javax.swing.JScrollPane scrollDescObjPropose;
+    public static javax.swing.JPanel pan;
     private javax.swing.JTextField textMailRecepteur;
-    public static javax.swing.JTextPane texteDescriptObjDesire;
-    public static javax.swing.JTextPane texteDescriptObjPropose;
     private javax.swing.JTextField texteEmetteur;
     private javax.swing.JTextField texteMailEmetteur;
     private javax.swing.JTextField texteRecepteur;
