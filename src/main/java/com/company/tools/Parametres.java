@@ -6,7 +6,15 @@
 package com.company.tools;
 
 import com.mycompany.interfacegraphique.InterfaceCreaProp;
+
 import javax.swing.JTextField;
+
+import static com.mycompany.interfacegraphique.InterfaceCreaProp.icp;
+import static com.mycompany.interfacegraphique.InterfaceCreaProp.pan;
+import static com.mycompany.interfacegraphique.InterfaceCreaProp.sizeY;
+import java.awt.Dimension;
+import javax.swing.JLabel;
+
 
 /**
  *
@@ -16,55 +24,104 @@ public class Parametres {
 
     String nom;
     String valeur;
-    public JTextField TexteNom;
-    public JTextField TexteValeur;
-    public static int posYCurrentParamProp = 250;
-    public static int posYCurrentParamDesire = 250;
+    public JLabel TexteNom;
+    public JLabel TexteValeur;
+    public static int posYCurrentParamProp = 310;
+    public static int posYCurrentParamDesire = 310;
     public static int sizeYParam = 30;
+    public static int positionCurrentBouton = 310;
 
-    public Parametres(int type) {
-
+    public Parametres(String nom, String valeur) {
+        this.nom = nom;
+        this.valeur = valeur;
+    }
+    
+    
+    public void afficherParam(int type, int nbParam) {
+        Dimension d = new Dimension(1570, sizeY + sizeYParam);
         if (type == 0) {
-            this.TexteNom = new JTextField();
-            this.TexteValeur = new JTextField();
+            this.TexteNom = new JLabel();
+            this.TexteValeur = new JLabel();
 
-            this.TexteNom.setLocation(550, posYCurrentParamProp);
-            this.TexteNom.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-            this.TexteNom.setText("Nom");
-            this.TexteNom.setSize(150, 25);
+            this.TexteNom.setText("Paramètre n°" + nbParam + " : " + this.nom);
+            this.TexteNom.setFont(new java.awt.Font("Arial", 1, 14));
+            this.TexteNom.setLocation(530, posYCurrentParamProp);
 
-            this.TexteValeur.setLocation(710, posYCurrentParamProp);
-            this.TexteValeur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-            this.TexteValeur.setText("Valeur");
-            this.TexteValeur.setSize(150, 25);
+            this.TexteValeur.setText(this.valeur);
+            this.TexteValeur.setFont(new java.awt.Font("Arial", 1, 14));
+            this.TexteValeur.setLocation(790, posYCurrentParamProp);
 
-            InterfaceCreaProp.pan.setSize(1570, InterfaceCreaProp.sizeY + 10);
-            InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, posYCurrentParamProp, 150, 25));
-            InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, posYCurrentParamProp, 150, 25));
-            posYCurrentParamProp += sizeYParam;
+            if (posYCurrentParamProp >= posYCurrentParamDesire){
+                InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYCurrentParamProp, 250, 20));
+                InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, posYCurrentParamProp, 70, 20));
+
+                Dimension df = new Dimension(1570, sizeY + sizeYParam);
+                icp.setSize(df);
+                icp.setPreferredSize(df);
+                pan.setSize(d);
+                pan.setPreferredSize(d);
+
+                posYCurrentParamProp += sizeYParam;
+                InterfaceCreaProp.posYBouton += sizeYParam;
+                sizeY += sizeYParam;
+            }
+            else{
+                InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYCurrentParamProp, 250, 20));
+                InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, posYCurrentParamProp, 70, 20));
+
+                Dimension df = new Dimension(1570, sizeY);
+                icp.setSize(df);
+                icp.setPreferredSize(df);
+                pan.setSize(d);
+                pan.setPreferredSize(d);
+
+                posYCurrentParamProp += sizeYParam;
+            }
+            
+            icp.revalidate();
         }
 
         if (type == 1) {
-            this.TexteNom = new JTextField();
-            this.TexteValeur = new JTextField();
+            this.TexteNom = new JLabel();
+            this.TexteValeur = new JLabel();
 
-            this.TexteNom.setLocation(1060, posYCurrentParamDesire);
-            this.TexteNom.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-            this.TexteNom.setText("Nom");
-            this.TexteNom.setSize(150, 25);
+            this.TexteNom.setText("Paramètre n°" + nbParam + " : " + this.nom);
+            this.TexteNom.setFont(new java.awt.Font("Arial", 1, 14));
+            this.TexteNom.setLocation(1050, posYCurrentParamDesire);
 
-            this.TexteValeur.setLocation(1220, posYCurrentParamDesire);
-            this.TexteValeur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-            this.TexteValeur.setText("Valeur");
-            this.TexteValeur.setSize(150, 25);
+            this.TexteValeur.setText(this.valeur);
+            this.TexteValeur.setFont(new java.awt.Font("Arial", 1, 14));
+            this.TexteValeur.setLocation(1300, posYCurrentParamDesire);
 
-            InterfaceCreaProp.pan.setSize(1570, InterfaceCreaProp.sizeY + 10);
-            InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, posYCurrentParamDesire, 150, 25));
-            InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, posYCurrentParamDesire, 150, 25));
+            if (posYCurrentParamDesire >= posYCurrentParamProp) {
 
-            posYCurrentParamDesire += sizeYParam;
+                InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYCurrentParamDesire, 250, 20));
+                InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, posYCurrentParamDesire, 70, 20));
 
+                Dimension df = new Dimension(1570, sizeY + sizeYParam);
+                icp.setSize(df);
+                icp.setPreferredSize(df);
+                pan.setSize(d);
+                pan.setPreferredSize(d);
+
+                posYCurrentParamDesire += sizeYParam;
+                sizeY += sizeYParam;
+            } else {
+                InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYCurrentParamDesire, 250, 20));
+                InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, posYCurrentParamDesire, 70, 20));
+
+                Dimension df = new Dimension(1570, sizeY);
+                icp.setSize(df);
+                icp.setPreferredSize(df);
+                pan.setSize(d);
+                pan.setPreferredSize(d);
+
+                posYCurrentParamDesire += sizeYParam;
+                
+                icp.revalidate();
+            }
         }
+
 
     }
     
@@ -74,7 +131,7 @@ public class Parametres {
         InterfaceCreaProp.pan.remove(this.TexteValeur);
         posYCurrentParamProp -= sizeYParam;
         
-        
+
     }
 
 }
