@@ -9,18 +9,15 @@ import com.company.tools.DriverManage;
 import com.company.tools.Objet;
 import static com.company.tools.Objet.sizeYObjt;
 import com.company.tools.Parametres;
-
-
-
-import java.sql.Statement;
-
 import static com.company.tools.Parametres.posYCurrentParamDesire;
 import static com.company.tools.Parametres.posYCurrentParamProp;
 import static com.company.tools.Parametres.positionCurrentBouton;
+import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JCheckBox;
@@ -310,16 +307,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
         jLabel3.setText("Veuillez ajouter différents paramètres de l'objet (Taille,Couleur,Prix,..) :");
         pan.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, -1, -1));
 
-<<<<<<< HEAD
-        boutonSupprimerparamDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        boutonSupprimerparamDesire.setText("Supprimer paramètre");
-        boutonSupprimerparamDesire.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonSupprimerparamDesireActionPerformed(evt);
-            }
-        });
-        pan.add(boutonSupprimerparamDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 280, -1, -1));
-=======
         nomParametreProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         nomParametreProp.setText("Nom du paramètre :");
         pan.add(nomParametreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, -1, 20));
@@ -356,7 +343,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
             }
         });
         pan.add(ajouterObjProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 280, 170, -1));
->>>>>>> cf338e9eb1795705ebb4e1f722480cc9d1c38dcf
 
         ajouterObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         ajouterObjDesire.setText("Ajouter un objet");
@@ -488,21 +474,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
             err = 1;
         }
 
-        if (estCheckPropose == 0) {
-            if (texteTypeObjPropose.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Le champs \"Type de l'objet\" de la section \"Je propose :\" doit être rempli!");
-                err = 1;
-            }
-        }
-
-        if (estCheckDesire == 0) {
-            if (texteTypeObjDesire.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Le champs \"Type de l'objet\" de la section \"Je désire :\" doit être rempli!");
-                err = 1;
-            }
-        }
-
-        if (err != 1) {
+             if (err != 1) {
             XmlTools xmlTools = new XmlTools();
 
             DriverManage setFic = new DriverManage();
@@ -570,15 +542,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
     }//GEN-LAST:event_ajouterParametrePropositionActionPerformed
 
     private void ajouterParametreDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterParametreDesireActionPerformed
-<<<<<<< HEAD
-        oDesire.addParam(1);
-
-        boutonValiderProp.setLocation(1050, posYBouton + Parametres.sizeYParam);
-        boutonValiderProp.setSize(500, 40);
-=======
         if (!texteNomDesire.getText().isEmpty() && !texteValeurDesire.getText().isEmpty()) {
             Parametres p = new Parametres(texteNomDesire.getText(), texteValeurDesire.getText());
->>>>>>> cf338e9eb1795705ebb4e1f722480cc9d1c38dcf
 
             oDesire.lp.add(p);
             oDesire.nbParam++;
@@ -592,10 +557,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
         }
     }//GEN-LAST:event_ajouterParametreDesireActionPerformed
 
-<<<<<<< HEAD
-    private void boutonSupprimerparamProp1ActionPerformed(java.awt.event.ActionEvent evt) {                                                          
-        oProp.deleteParam(0);
-=======
     private void ajouterObjPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterObjPropActionPerformed
         if (texteTypeObjPropose.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ \"Type de l'objet\" de la section \"Je propose :\" doit être rempli!");
@@ -627,9 +588,10 @@ public class InterfaceCreaProp extends java.awt.Frame {
             pan.setPreferredSize(d);
 
             listOProp.get(nbObjetProp).afficherObj(0, nbObjetProp);
->>>>>>> cf338e9eb1795705ebb4e1f722480cc9d1c38dcf
 
             nbObjetProp++;
+            
+            texteTypeObjPropose.setText("");
 
             revalidate();
 
@@ -639,12 +601,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
             posYCurrentParamProp = 310 + nbObjetProp * sizeYObjt;
             posYBouton = positionCurrentBouton;
         }
-<<<<<<< HEAD
-
-        repaint();
-=======
     }//GEN-LAST:event_ajouterObjPropActionPerformed
->>>>>>> cf338e9eb1795705ebb4e1f722480cc9d1c38dcf
 
     private void ajouterObjDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterObjDesireActionPerformed
         if (texteTypeObjDesire.getText().isEmpty()) {
@@ -677,6 +634,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listODesire.get(nbObjetDesire).afficherObj(1, nbObjetDesire);
 
             nbObjetDesire++;
+            
+            texteTypeObjDesire.setText("");
 
             revalidate();
 
@@ -686,27 +645,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
             posYCurrentParamDesire = 310 + nbObjetDesire * sizeYObjt;
         }
     }//GEN-LAST:event_ajouterObjDesireActionPerformed
-
-    private void boutonSupprimerparamDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerparamDesireActionPerformed
-        oDesire.deleteParam(1);
-
-        boutonValiderProp.setLocation(1050, posYBouton - Parametres.sizeYParam);
-        boutonValiderProp.setSize(500, 40);
-
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton - Parametres.sizeYParam, 500, 40));
-
-        Dimension d = new Dimension(1570, sizeY);
-        icp.setSize(1570, sizeY - Parametres.sizeYParam - 10);
-        icp.setPreferredSize(d);
-        pan.setPreferredSize(d);
-
-        if (oDesire.nbParam - 3 > 0) {
-            posYBouton -= Parametres.sizeYParam;
-            sizeY -= Parametres.sizeYParam;
-        }
-
-        repaint();
-    }//GEN-LAST:event_boutonSupprimerparamDesireActionPerformed
 
     /**
      * @param args the command line arguments

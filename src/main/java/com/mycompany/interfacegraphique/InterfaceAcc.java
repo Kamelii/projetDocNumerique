@@ -10,14 +10,18 @@ import com.company.tools.DriverManage;
 import static com.mycompany.interfacegraphique.InterfaceAut.setU;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-
-
 import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
 
 public class InterfaceAcc extends java.awt.Frame {
 
     static DriverManage setR=new DriverManage();
+    String type="accepAuto";
+    String fichier= "xml.xml";
+    XMLParser p= new XMLParser();
+    String emetteur= p.recupererEmetteur(fichier);
+    String recepteur= p.recupererRecepteur(fichier);
+    int msgId= p.recupererIdMsg(fichier);
     
     public InterfaceAcc() {
         initComponents();
@@ -98,6 +102,8 @@ public class InterfaceAcc extends java.awt.Frame {
         String acc = "Accepte";
         Statement s = setR.ConnectionDB();
         setR.repAuto(s, acc);
+        int idF=setR.ajoutFichier(s,emetteur,recepteur);
+        setR.ajoutMessage(s,type,msgId,,);
         JOptionPane.showMessageDialog(null, "Demande acceptée");
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
@@ -105,6 +111,7 @@ public class InterfaceAcc extends java.awt.Frame {
         String ref = "Refuse";
         Statement s = setR.ConnectionDB();
         setR.repAuto(s, ref);
+        setR.supprimeFic(s,emetteur, recepteur);
         JOptionPane.showMessageDialog(null, "Demande Refusée");
 
          XmlTools xmlTools = new XmlTools();

@@ -30,10 +30,9 @@ import org.xml.sax.InputSource;
  */
 public class XmlTools {
 
-    public boolean creerAuth(String nomE, String nomR, int dureeV, String emailE, String emailR, String descDmd) {
+    public boolean creerAuth(String ficId,String nomE, String nomR, int dureeV, String emailE, String emailR, String descDmd) {
         try {
             Date now = new Date();
-            String ficId = "" + (Math.random()%1000);
             StringWriter stringWriter = new StringWriter();
             XMLOutputFactory xMLOutputFactory = XMLOutputFactory.newInstance();
             XMLStreamWriter xMLStreamWriter
@@ -47,7 +46,7 @@ public class XmlTools {
             xMLStreamWriter.writeEndElement();
 
             xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
+            xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
@@ -254,7 +253,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", "m" + (Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();

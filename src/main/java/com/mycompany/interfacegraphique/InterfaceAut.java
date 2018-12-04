@@ -213,14 +213,17 @@ public class InterfaceAut extends java.awt.Frame {
             int e = setU.exist(s, mailR);
             if (e != 0) {
                 System.out.println("Utilisateur trouvé");
-                if (xmlTools.creerAuth(emetteur, recepteur, dureeV, mailE, mailR, descDmd)) {
+                int idF= setU.ajoutFichier(s, mailE, mailR);
+                String ficId=""+idF;
+                if (xmlTools.creerAuth(ficId,emetteur,recepteur, dureeV, mailE, mailR, descDmd)) {
                     JOptionPane.showMessageDialog(null, "Demande crée avec succès");
 
                     setU.ajoutAuth(s, mailE, mailR, descDmd, dureeV);
-                    int id = setU.recupID(s, mailE, mailR);
+                    int iddmd = setU.recupID(s, mailE, mailR);
                     //setU.ajoutFichier(s,mailE,mailR);
-                    setU.ajoutMessage(s, type, msgid, id, dmd, dureeV, date);
-                    System.out.print("l'id de la demande " + id);
+                    setU.ajoutMessage(s, type, msgid, idF,iddmd, dureeV, date);
+                    
+                    System.out.print("l'id de la demande " + iddmd);
                 } else {
                     JOptionPane.showMessageDialog(null, "Erreur veuillez réessayer plus tard");
 

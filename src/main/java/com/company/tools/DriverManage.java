@@ -92,6 +92,17 @@ public class DriverManage {
         }
         return idf;
     }
+    public void supprimeFic(Statement s, String mailE, String mailR){
+      try{
+          int state= s.executeUpdate("DELETE FROM TABLE fichier WHERE mailE='"+mailE+"' AND mailR='"+mailR+"'");
+          
+      }catch(SQLException e){
+      
+      System.out.println(e);
+      }
+      }
+    
+    
 
     public String verifieReponseDMD(Statement s, String mailE, String mailR) {
         String reponse = null;
@@ -119,6 +130,21 @@ public class DriverManage {
     public void ajoutMessage(Statement s, String type, int msgid, int fichierid, int typemsg, int dureev, String dte) {
         try {
             int statut = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,'" + typemsg + "',0,0,'" + dureev + "','" + dte + "')");
+
+            String msgType= type;
+            if(msgType=="dmdAuth"){
+             int statutauth = s.executeUpdate("INSERT INTO message (auth) VALUES ('" + typemsg + "')");
+            }
+            if(msgType=="dmndePropo"){
+             int statutpropo = s.executeUpdate("INSERT INTO message (dmd) VALUES ('" + typemsg + "')");
+            }
+            if(msgType=="accepAuth"){
+             int statutauth = s.executeUpdate("INSERT INTO message (acc) VALUES ('" + typemsg + "')");
+            }
+            if(msgType=="accPropo"){
+             int statutauth = s.executeUpdate("INSERT INTO message (propo) VALUES ('" + typemsg + "')");
+            }
+            
         } catch (SQLException e) {
             System.out.println(e);
         }
