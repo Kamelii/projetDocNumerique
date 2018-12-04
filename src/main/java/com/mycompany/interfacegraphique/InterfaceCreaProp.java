@@ -6,10 +6,15 @@
 package com.mycompany.interfacegraphique;
 
 import com.company.tools.Objet;
+import static com.company.tools.Objet.sizeYObjt;
 import com.company.tools.Parametres;
+import static com.company.tools.Parametres.posYCurrentParamDesire;
+import static com.company.tools.Parametres.posYCurrentParamProp;
+import static com.company.tools.Parametres.positionCurrentBouton;
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -22,12 +27,18 @@ import javax.swing.JSpinner;
 public class InterfaceCreaProp extends java.awt.Frame {
 
     public static int estCheckDesire = 0, estCheckPropose = 0;
-    public static ArrayList<Objet> lo = new ArrayList<>();
-    public static int nbObjet = 0;
+    public static ArrayList<Objet> listOProp = new ArrayList<>();
+    public static ArrayList<Objet> listODesire = new ArrayList<>();
+    public static int nbObjetProp = 0;
+    public static int nbObjetDesire = 0;
     public static int sizeY = 395;
-    public static int posYBouton = 280;
+    public static int posYBouton = 310;
     public static InterfaceCreaProp icp = new InterfaceCreaProp();
-    public static Objet oProp, oDesire;
+    private int nbParamProp;
+    private int nbParamDesire;
+    private final int sizeYDefault = 395;
+    private static Objet oProp;
+    private static Objet oDesire;
 
     /**
      * Creates new form InterfaceAut
@@ -44,6 +55,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         pan = new javax.swing.JPanel();
         titreFenetreProp = new javax.swing.JLabel();
         nomEmetteur = new javax.swing.JLabel();
@@ -76,8 +89,20 @@ public class InterfaceCreaProp extends java.awt.Frame {
         ajouterParametreProposition = new javax.swing.JButton();
         ajouterParametreDesire = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        boutonSupprimerparamDesire = new javax.swing.JButton();
-        boutonSupprimerparamProp1 = new javax.swing.JButton();
+        nomParametreProp = new javax.swing.JLabel();
+        valeurParametreProp = new javax.swing.JLabel();
+        texteNomProp = new javax.swing.JTextField();
+        texteValeurProp = new javax.swing.JTextField();
+        nomParametreDesire = new javax.swing.JLabel();
+        texteNomDesire = new javax.swing.JTextField();
+        texteValeurDesire = new javax.swing.JTextField();
+        valeurParametreDesire = new javax.swing.JLabel();
+        ajouterObjProp = new javax.swing.JButton();
+        ajouterObjDesire = new javax.swing.JButton();
+
+        jMenu1.setText("jMenu1");
+
+        jMenu2.setText("jMenu2");
 
         setPreferredSize(new java.awt.Dimension(1570, 395));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -97,7 +122,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         titreFenetreProp.setMaximumSize(new java.awt.Dimension(465, 40));
         titreFenetreProp.setMinimumSize(new java.awt.Dimension(465, 40));
         titreFenetreProp.setPreferredSize(new java.awt.Dimension(465, 40));
-        pan.add(titreFenetreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 500, 50));
+        pan.add(titreFenetreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 500, 50));
 
         nomEmetteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         nomEmetteur.setText("Nom émetteur : *");
@@ -231,7 +256,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
                 boutonValiderPropActionPerformed(evt);
             }
         });
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 310, 500, 40));
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 500, 40));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Jour(s)");
@@ -272,26 +297,59 @@ public class InterfaceCreaProp extends java.awt.Frame {
                 ajouterParametreDesireActionPerformed(evt);
             }
         });
-        pan.add(ajouterParametreDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 250, 170, -1));
+        pan.add(ajouterParametreDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 250, 170, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Veuillez ajouter différents paramètres de l'objet (Taille,Couleur,Prix,..) :");
         pan.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, -1, -1));
 
-        boutonSupprimerparamDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        boutonSupprimerparamDesire.setText("Supprimer paramètre");
-        pan.add(boutonSupprimerparamDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 280, -1, -1));
+        nomParametreProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        nomParametreProp.setText("Nom du paramètre :");
+        pan.add(nomParametreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, -1, 20));
 
-        boutonSupprimerparamProp1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        boutonSupprimerparamProp1.setText("Supprimer paramètre");
-        boutonSupprimerparamProp1.addActionListener(new java.awt.event.ActionListener() {
+        valeurParametreProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        valeurParametreProp.setText("Valeur du¨parametre :");
+        pan.add(valeurParametreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, -1, 20));
+
+        texteNomProp.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        pan.add(texteNomProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 250, 190, -1));
+
+        texteValeurProp.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        pan.add(texteValeurProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 280, 170, -1));
+
+        nomParametreDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        nomParametreDesire.setText("Nom du paramètre :");
+        pan.add(nomParametreDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 250, -1, 20));
+
+        texteNomDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        pan.add(texteNomDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 250, 190, -1));
+
+        texteValeurDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        pan.add(texteValeurDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 280, 170, -1));
+
+        valeurParametreDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        valeurParametreDesire.setText("Valeur du¨parametre :");
+        pan.add(valeurParametreDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 280, -1, 20));
+
+        ajouterObjProp.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ajouterObjProp.setText("Ajouter un objet");
+        ajouterObjProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonSupprimerparamProp1ActionPerformed(evt);
+                ajouterObjPropActionPerformed(evt);
             }
         });
-        pan.add(boutonSupprimerparamProp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 280, -1, -1));
+        pan.add(ajouterObjProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 280, 170, -1));
 
-        add(pan, java.awt.BorderLayout.NORTH);
+        ajouterObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ajouterObjDesire.setText("Ajouter un objet");
+        ajouterObjDesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterObjDesireActionPerformed(evt);
+            }
+        });
+        pan.add(ajouterObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 280, 170, -1));
+
+        add(pan, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -313,12 +371,34 @@ public class InterfaceCreaProp extends java.awt.Frame {
             texteTypeObjPropose.setText("");
             texteTypeObjPropose.setBackground(new Color(230, 230, 230));
 
+            texteValeurProp.setFocusable(false);
+            texteValeurProp.setText("");
+            texteValeurProp.setBackground(new Color(230, 230, 230));
+
+            texteNomProp.setFocusable(false);
+            texteNomProp.setText("");
+            texteNomProp.setBackground(new Color(230, 230, 230));
+
+            ajouterParametreProposition.setEnabled(false);
+            ajouterObjProp.setEnabled(false);
+
             estCheckPropose = 1;
 
             pan.repaint();
         } else {
             texteTypeObjPropose.setFocusable(true);
             texteTypeObjPropose.setBackground(new Color(255, 255, 255));
+
+            texteValeurProp.setFocusable(true);
+            texteValeurProp.setText("");
+            texteValeurProp.setBackground(new Color(255, 255, 255));
+
+            texteNomProp.setFocusable(true);
+            texteNomProp.setText("");
+            texteNomProp.setBackground(new Color(255, 255, 255));
+
+            ajouterParametreProposition.setEnabled(true);
+            ajouterObjProp.setEnabled(true);
 
             estCheckPropose = 0;
 
@@ -336,12 +416,34 @@ public class InterfaceCreaProp extends java.awt.Frame {
             texteTypeObjDesire.setText("");
             texteTypeObjDesire.setBackground(new Color(230, 230, 230));
 
+            texteValeurDesire.setFocusable(false);
+            texteValeurDesire.setText("");
+            texteValeurDesire.setBackground(new Color(240, 240, 240));
+
+            texteNomDesire.setFocusable(false);
+            texteNomDesire.setText("");
+            texteNomDesire.setBackground(new Color(240, 240, 240));
+
+            ajouterParametreDesire.setEnabled(false);
+            ajouterObjDesire.setEnabled(false);
+
             estCheckDesire = 1;
 
             pan.repaint();
         } else {
             texteTypeObjDesire.setFocusable(true);
             texteTypeObjDesire.setBackground(new Color(255, 255, 255));
+
+            texteValeurDesire.setFocusable(true);
+            texteValeurDesire.setText("");
+            texteValeurDesire.setBackground(new Color(255, 255, 255));
+
+            texteNomDesire.setFocusable(true);
+            texteNomDesire.setText("");
+            texteNomDesire.setBackground(new Color(255, 255, 255));
+
+            ajouterParametreDesire.setEnabled(true);
+            ajouterObjDesire.setEnabled(true);
 
             estCheckDesire = 0;
 
@@ -404,81 +506,142 @@ public class InterfaceCreaProp extends java.awt.Frame {
     }//GEN-LAST:event_choixNbJourStateChanged
 
     private void ajouterParametrePropositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterParametrePropositionActionPerformed
+        if (!texteNomProp.getText().isEmpty() && !texteValeurProp.getText().isEmpty()) {
+            Parametres p = new Parametres(texteNomProp.getText(), texteValeurProp.getText());
 
-        oProp.addParam(0);
+            oProp.lp.add(p);
+            oProp.nbParam++;
 
-        boutonValiderProp.setLocation(1050, posYBouton + Parametres.sizeYParam);
-        boutonValiderProp.setSize(500, 40);
+            p.afficherParam(0, oProp.nbParam);
 
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton + Parametres.sizeYParam, 500, 40));
+            texteNomProp.setText("");
+            texteValeurProp.setText("");
 
-        Dimension d = new Dimension(1570, sizeY);
-        icp.setSize(1570, sizeY + Parametres.sizeYParam);
-        icp.setPreferredSize(d);
-        pan.setPreferredSize(d);
-        posYBouton += Parametres.sizeYParam;
-        sizeY += Parametres.sizeYParam;
+        } else {
+            JOptionPane.showMessageDialog(null, "Les champs \"Nom du paramètre\" et \"Valeur du paramètre\" de la section \"Je propse :\" doivent être remplis!");
+        }
 
-        repaint();
     }//GEN-LAST:event_ajouterParametrePropositionActionPerformed
 
     private void ajouterParametreDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterParametreDesireActionPerformed
-        oDesire.addParam(1);
-        
-        boutonValiderProp.setLocation(1050, posYBouton + Parametres.sizeYParam);
-        boutonValiderProp.setSize(500, 40);
+        if (!texteNomDesire.getText().isEmpty() && !texteValeurDesire.getText().isEmpty()) {
+            Parametres p = new Parametres(texteNomDesire.getText(), texteValeurDesire.getText());
 
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton + Parametres.sizeYParam, 500, 40));
+            oDesire.lp.add(p);
+            oDesire.nbParam++;
 
-        Dimension d = new Dimension(1570, sizeY);
-        icp.setSize(1570, sizeY + Parametres.sizeYParam);
-        icp.setPreferredSize(d);
-        pan.setPreferredSize(d);
-        posYBouton += Parametres.sizeYParam;
-        sizeY += Parametres.sizeYParam;
+            p.afficherParam(1, oDesire.nbParam);
 
-        repaint();
+            texteNomDesire.setText("");
+            texteValeurDesire.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "Les champs \"Nom du paramètre\" et \"Valeur du paramètre\" de la section \"Je désire :\" doivent être remplis!");
+        }
     }//GEN-LAST:event_ajouterParametreDesireActionPerformed
 
-    private void boutonSupprimerparamProp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerparamProp1ActionPerformed
-        oProp.deleteParam();
+    private void ajouterObjPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterObjPropActionPerformed
+        if (texteTypeObjPropose.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champ \"Type de l'objet\" de la section \"Je propose :\" doit être rempli!");
+        } else {
+            Dimension d;
+            Point p;
+            oProp.setType(texteTypeObjPropose.getText());
+            listOProp.add(oProp);
 
-        boutonValiderProp.setLocation(1050, posYBouton - Parametres.sizeYParam);
-        boutonValiderProp.setSize(500, 40);
+            listOProp.get(nbObjetProp).removeAllParam();
+            sizeY = sizeYDefault;
 
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYBouton - Parametres.sizeYParam, 500, 40));
+            if (nbObjetProp > nbObjetDesire) {
+                d = new Dimension(1570, sizeY + nbObjetProp * sizeYObjt);
+                sizeY += nbObjetProp * sizeYObjt;
+                boutonValiderProp.setLocation(1050, sizeY + nbObjetProp * sizeYObjt - sizeYObjt);
+                posYBouton = sizeY + nbObjetProp * sizeYObjt - sizeYObjt;
+            } else {
+                d = new Dimension(1570, sizeY + nbObjetDesire * sizeYObjt);
+                sizeY += nbObjetDesire * sizeYObjt;
+                boutonValiderProp.setLocation(1050, sizeY + nbObjetDesire * sizeYObjt - sizeYObjt);
+                posYBouton = sizeY + nbObjetDesire * sizeYObjt - sizeYObjt;
+            }
+            p = new Point(1050, positionCurrentBouton);
+            boutonValiderProp.setLocation(p);
+            icp.setSize(d);
+            icp.setPreferredSize(d);
+            pan.setSize(d);
+            pan.setPreferredSize(d);
 
-        Dimension d = new Dimension(1570, sizeY);
-        icp.setSize(1570, sizeY - Parametres.sizeYParam - 10);
-        icp.setPreferredSize(d);
-        pan.setPreferredSize(d);
+            listOProp.get(nbObjetProp).afficherObj(0, nbObjetProp);
 
-        if (oProp.nbParam - 3 > 0) {
-            posYBouton -= Parametres.sizeYParam;
-            sizeY -= Parametres.sizeYParam;
+            nbObjetProp++;
+
+            revalidate();
+
+            oProp = new Objet();
+            oProp.nbParam = 0;
+
+            posYCurrentParamProp = 310 + nbObjetProp * sizeYObjt;
+            posYBouton = positionCurrentBouton;
         }
-        
-        repaint();
+    }//GEN-LAST:event_ajouterObjPropActionPerformed
 
-    }//GEN-LAST:event_boutonSupprimerparamProp1ActionPerformed
+    private void ajouterObjDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterObjDesireActionPerformed
+        if (texteTypeObjDesire.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champ \"Type de l'objet\" de la section \"Je désire :\" doit être rempli!");
+        } else {
+            Dimension d;
+            Point p;
+            oDesire.setType(texteTypeObjDesire.getText());
+            listODesire.add(oDesire);
+
+            listODesire.get(nbObjetDesire).removeAllParam();
+            sizeY = sizeYDefault;
+
+            if (nbObjetDesire > nbObjetProp) {
+                d = new Dimension(1570, sizeY + nbObjetDesire * sizeYObjt);
+                sizeY += nbObjetDesire * sizeYObjt;
+                boutonValiderProp.setLocation(1050, sizeY + nbObjetDesire * sizeYObjt - sizeYObjt);
+                posYBouton = sizeY + nbObjetDesire * sizeYObjt - sizeYObjt;
+            } else {
+                d = new Dimension(1570, sizeY + nbObjetProp * sizeYObjt);
+                sizeY += nbObjetProp * sizeYObjt;
+                boutonValiderProp.setLocation(1050, sizeY + nbObjetProp * sizeYObjt - sizeYObjt);
+                posYBouton = sizeY + nbObjetProp * sizeYObjt - sizeYObjt;
+            }
+            icp.setSize(d);
+            icp.setPreferredSize(d);
+            pan.setSize(d);
+            pan.setPreferredSize(d);
+
+            listODesire.get(nbObjetDesire).afficherObj(1, nbObjetDesire);
+
+            nbObjetDesire++;
+
+            revalidate();
+
+            oDesire = new Objet();
+            oDesire.nbParam = 0;
+
+            posYCurrentParamDesire = 310 + nbObjetDesire * sizeYObjt;
+        }
+    }//GEN-LAST:event_ajouterObjDesireActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            oProp = new Objet(0);
-            oDesire = new Objet(1);
+            oProp = new Objet();
+            oDesire = new Objet();
+
             icp.setVisible(true);
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ajouterObjDesire;
+    private javax.swing.JButton ajouterObjProp;
     private javax.swing.JButton ajouterParametreDesire;
     private javax.swing.JButton ajouterParametreProposition;
-    private javax.swing.JButton boutonSupprimerparamDesire;
-    private javax.swing.JButton boutonSupprimerparamProp1;
     public static javax.swing.JButton boutonValiderProp;
     private javax.swing.JCheckBox checkPasObjDesire;
     private javax.swing.JCheckBox checkPasObjPropose;
@@ -490,24 +653,34 @@ public class InterfaceCreaProp extends java.awt.Frame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JLabel jeDesire;
     private javax.swing.JLabel jePropose;
     private javax.swing.JLabel maProposition;
     private javax.swing.JLabel mailEmetteur;
     private javax.swing.JLabel mailRecepteur;
     private javax.swing.JLabel nomEmetteur;
+    private javax.swing.JLabel nomParametreDesire;
+    private javax.swing.JLabel nomParametreProp;
     private javax.swing.JLabel nomRecepteur;
     public static javax.swing.JPanel pan;
     private javax.swing.JTextField textMailRecepteur;
     private javax.swing.JTextField texteEmetteur;
     private javax.swing.JTextField texteMailEmetteur;
+    private javax.swing.JTextField texteNomDesire;
+    private javax.swing.JTextField texteNomProp;
     private javax.swing.JTextField texteRecepteur;
     private javax.swing.JTextField texteTitreProp;
     public static javax.swing.JTextField texteTypeObjDesire;
     public static javax.swing.JTextField texteTypeObjPropose;
+    private javax.swing.JTextField texteValeurDesire;
+    private javax.swing.JTextField texteValeurProp;
     private javax.swing.JLabel titreFenetreProp;
     private javax.swing.JLabel titreProp;
     private javax.swing.JLabel typeObjDesire;
     private javax.swing.JLabel typeObjPropose;
+    private javax.swing.JLabel valeurParametreDesire;
+    private javax.swing.JLabel valeurParametreProp;
     // End of variables declaration//GEN-END:variables
 }
