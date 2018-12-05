@@ -4,6 +4,7 @@ import com.mycompany.interfacegraphique.InterfaceAcc;
 import com.mycompany.interfacegraphique.InterfaceAffichProp;
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -85,7 +86,7 @@ public class XMLParser {
             Element root = xml.getDocumentElement();
             NodeList elem =  root.getElementsByTagName("Message");
             String msgid = elem.item(0).getAttributes().getNamedItem("MsgId").getNodeValue();
-            idmsg= Integer.parseInt(msgid);
+            idmsg= parseInt(msgid);
            
         }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
@@ -105,7 +106,7 @@ public class XMLParser {
 
             Document xml = builder.parse(fileXML);
             Element root = xml.getDocumentElement();
-            Emetteur = root.getElementsByTagName("MailExp").item(0).getTextContent();
+             Emetteur = root.getElementsByTagName("MailExp").item(0).getTextContent();
 
          
            
@@ -135,5 +136,28 @@ public class XMLParser {
             e.printStackTrace();
         } 
     return recepteur;
+    }
+
+
+public static int recupererFicId(String Fichier){
+
+ DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+       int FicId=0;
+        try{
+
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            File fileXML = new File("src/main/java/com/company/tools/" + Fichier);
+
+            Document xml = builder.parse(fileXML);
+            Element root = xml.getDocumentElement();
+           FicId = parseInt(root.getElementsByTagName("FicId").item(0).getTextContent());
+
+         
+           
+        }catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } 
+    return FicId;
     }
 }

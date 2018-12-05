@@ -92,26 +92,25 @@ public class DriverManage {
         }
         return idf;
     }
-    public void supprimeFic(Statement s, String mailE, String mailR){
-      try{
-          int state= s.executeUpdate("DELETE FROM TABLE fichier WHERE mailE='"+mailE+"' AND mailR='"+mailR+"'");
-          
-      }catch(SQLException e){
-      
-      System.out.println(e);
-      }
-      }
-    
-    
+
+    public void supprimeFic(Statement s, String mailE, String mailR) {
+        try {
+            int state = s.executeUpdate("DELETE FROM TABLE fichier WHERE mailE='" + mailE + "' AND mailR='" + mailR + "'");
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+        }
+    }
 
     public String verifieReponseDMD(Statement s, String mailE, String mailR) {
         String reponse = null;
-        int idDmd=0;
+        int idDmd = 0;
         try {
             ResultSet result = s.executeQuery("SELECT id FROM demande WHERE emetteur='" + mailE + "' AND recepteur='" + mailR + "'");
             result.next();
-             idDmd = result.getInt("id");
-            if (idDmd==0) {
+            idDmd = result.getInt("id");
+            if (idDmd == 0) {
                 reponse = "Vous n'avez pas de demande d'autorisation de troc ";
 
             } else {
@@ -131,47 +130,52 @@ public class DriverManage {
         try {
             int statut = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,'" + typemsg + "',0,0,'" + dureev + "','" + dte + "')");
 
-            String msgType= type;
-            if(msgType=="dmdAuth"){
-             int statutauth = s.executeUpdate("INSERT INTO message (auth) VALUES ('" + typemsg + "')");
+            String msgType = type;
+            if (msgType == "dmdAuth") {
+                int statutauth = s.executeUpdate("INSERT INTO message (auth) VALUES ('" + typemsg + "')");
             }
-            if(msgType=="dmndePropo"){
-             int statutpropo = s.executeUpdate("INSERT INTO message (dmd) VALUES ('" + typemsg + "')");
+            if (msgType == "dmndePropo") {
+                int statutpropo = s.executeUpdate("INSERT INTO message (dmd) VALUES ('" + typemsg + "')");
             }
-            if(msgType=="accepAuth"){
-             int statutauth = s.executeUpdate("INSERT INTO message (acc) VALUES ('" + typemsg + "')");
+            if (msgType == "repAuth") {
+                int statutauth = s.executeUpdate("INSERT INTO message (acc) VALUES ('" + typemsg + "')");
             }
-            if(msgType=="accPropo"){
-             int statutauth = s.executeUpdate("INSERT INTO message (propo) VALUES ('" + typemsg + "')");
+            if (msgType == "accPropo") {
+                int statutauth = s.executeUpdate("INSERT INTO message (propo) VALUES ('" + typemsg + "')");
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public int ajoutPropo(Statement s, String titre, String type) {
-        int idPropo=0;
-    try{
-    int statut=s.executeUpdate("INSERT INTO propo (titre,type) VALUES ('"+titre+"', '"+type+"')");
-    
-    ResultSet result=s.executeQuery("SELECT id FROM propo WHERE titre='"+titre+"' AND type='"+type+"'");
-    result.next();
-    idPropo= result.getInt("id");
-    }catch(SQLException e){
-    System.out.println(e);
-    }
-    return idPropo;
+        int idPropo = 0;
+        try {
+            int statut = s.executeUpdate("INSERT INTO propo (titre,type) VALUES ('" + titre + "', '" + type + "')");
+
+            ResultSet result = s.executeQuery("SELECT id FROM propo WHERE titre='" + titre + "' AND type='" + type + "'");
+            result.next();
+            idPropo = result.getInt("id");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return idPropo;
     }
 
     // Reponse a la demande d'autorisation
-    public void repAuto(Statement s, String answer) {
+    public int repAuto(Statement s, String answer, int iddmd) {
+        int idrep = 0;
         try {
-            int statu = s.executeUpdate("INSERT INTO auto (reponse) VALUES ('" + answer + "')");
+            int statu = s.executeUpdate("INSERT INTO auto (reponse,iddemde) VALUES ('" + answer + "','" + iddmd + "')");
             System.out.println("!!! REPONSE RECU !!!");
+            ResultSet result = s.executeQuery("SELECT id FROM auto WHERE iddemde='" + iddmd + "'");
+            result.next();
+            idrep = result.getInt("id");
         } catch (SQLException n) {
             System.out.println(n);
         }
+        return idrep;
     }
 
     public Statement ConnectionDB() {

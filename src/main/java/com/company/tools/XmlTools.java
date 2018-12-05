@@ -230,9 +230,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+            
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();

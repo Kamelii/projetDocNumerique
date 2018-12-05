@@ -5,24 +5,31 @@
  */
 package com.mycompany.interfacegraphique;
 
-
 import com.company.tools.DriverManage;
 import static com.mycompany.interfacegraphique.InterfaceAut.setU;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
+import static java.time.Instant.now;
+import java.util.Date;
 
+/**
+ *
+ * @author DELL XPS
+ */
 public class InterfaceAcc extends java.awt.Frame {
+    DriverManage setR= new DriverManage();
+    Statement s= setR.ConnectionDB();
+    String emetteur = XMLParser.recupererEmetteur("xml.xml");
+    String recepteur = XMLParser.recupererRecepteur("xml.xml");
+    int msgId = XMLParser.recupererIdMsg("xml.xml");
+    int iddmd = setR.recupID(s, emetteur, recepteur);
+    String type="repAuth";
 
-    static DriverManage setR=new DriverManage();
-    String type="accepAuto";
-    String fichier= "xml.xml";
-    XMLParser p= new XMLParser();
-    String emetteur= p.recupererEmetteur(fichier);
-    String recepteur= p.recupererRecepteur(fichier);
-    int msgId= p.recupererIdMsg(fichier);
-    
+    /**
+     * Creates new form InterfaceAcc
+     */
     public InterfaceAcc() {
         initComponents();
     }
@@ -98,34 +105,35 @@ public class InterfaceAcc extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
+        XmlTools xmlTools = new XmlTools();
 
+        xmlTools.accepterAuth("xml.xml");
         String acc = "Accepte";
-        Statement s = setR.ConnectionDB();
-        setR.repAuto(s, acc);
-        int idF=setR.ajoutFichier(s,emetteur,recepteur);
-        setR.ajoutMessage(s,type,msgId,,);
+        int idF = 5;
+        int idrep = setR.repAuto(s, acc, iddmd);
+        int dureeV = 0;
+        Date now = new Date();
+        String date = now.toString();
+
+        setR.ajoutMessage(s, type, msgId, idF, idrep, dureeV, date);
         JOptionPane.showMessageDialog(null, "Demande acceptée");
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
     private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
-        String ref = "Refuse";
-        Statement s = setR.ConnectionDB();
-        setR.repAuto(s, ref);
-        setR.supprimeFic(s,emetteur, recepteur);
-        JOptionPane.showMessageDialog(null, "Demande Refusée");
+        XmlTools xmlTools = new XmlTools();
 
-         XmlTools xmlTools = new XmlTools();
-         
-        xmlTools.accepterAuth("xml.xml");
-    }//GEN-LAST:event_boutonAccepterActionPerformed
+        xmlTools.refuserAuth("xml.xml");
+    }//GEN-LAST:event_boutonRefuserActionPerformed
 
-   
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            Statement s = setU.ConnectionDB();
-            System.out.println("connexion réussie");
+            InterfaceAcc ia = new InterfaceAcc();
+            XMLParser.AfficherAcc("xml.xml");
+            ia.setVisible(true);
 
-            new InterfaceAcc().setVisible(true);
         });
     }
 

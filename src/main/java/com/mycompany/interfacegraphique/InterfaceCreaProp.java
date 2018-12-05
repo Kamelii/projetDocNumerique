@@ -17,6 +17,7 @@ import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +109,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         jMenu2.setText("jMenu2");
 
-        setPreferredSize(new java.awt.Dimension(1570, 395));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -228,6 +228,11 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, 170, -1));
 
         texteTypeObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteTypeObjDesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texteTypeObjDesireActionPerformed(evt);
+            }
+        });
         pan.add(texteTypeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 170, 320, -1));
 
         checkPasObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -645,6 +650,10 @@ public class InterfaceCreaProp extends java.awt.Frame {
             posYCurrentParamDesire = 310 + nbObjetDesire * sizeYObjt;
         }
     }//GEN-LAST:event_ajouterObjDesireActionPerformed
+
+    private void texteTypeObjDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteTypeObjDesireActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texteTypeObjDesireActionPerformed
 
     /**
      * @param args the command line arguments

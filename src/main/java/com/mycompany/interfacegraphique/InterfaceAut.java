@@ -6,6 +6,7 @@
 package com.mycompany.interfacegraphique;
 
 import com.company.tools.DriverManage;
+import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.io.StringWriter;
@@ -200,6 +201,7 @@ public class InterfaceAut extends java.awt.Frame {
 
         if (err != 1) {
             XmlTools xmlTools = new XmlTools();
+            XMLParser xmlParser = new XMLParser();
             String emetteur = texteEmetteur.getText();
             String mailE = texteMailEmetteur.getText();
             String mailR = textMailRecepteur.getText();
@@ -208,21 +210,22 @@ public class InterfaceAut extends java.awt.Frame {
             String descDmd = texteDescDemande.getText();
             Date now = new Date();
             String date = now.toString();
-            int msgid = 4;
+
             Statement s = setU.ConnectionDB();
             int e = setU.exist(s, mailR);
             if (e != 0) {
                 System.out.println("Utilisateur trouvé");
-                int idF= setU.ajoutFichier(s, mailE, mailR);
-                String ficId=""+idF;
-                if (xmlTools.creerAuth(ficId,emetteur,recepteur, dureeV, mailE, mailR, descDmd)) {
+                int idF = setU.ajoutFichier(s, mailE, mailR);
+                String ficId = "" + idF;
+                if (xmlTools.creerAuth(ficId, emetteur, recepteur, dureeV, mailE, mailR, descDmd)) {
                     JOptionPane.showMessageDialog(null, "Demande crée avec succès");
-
+                    String fichier = "dmd_" + ficId + ".xml";
+                    int msgid = xmlParser.recupererIdMsg(fichier);
                     setU.ajoutAuth(s, mailE, mailR, descDmd, dureeV);
                     int iddmd = setU.recupID(s, mailE, mailR);
-                    //setU.ajoutFichier(s,mailE,mailR);
-                    setU.ajoutMessage(s, type, msgid, idF,iddmd, dureeV, date);
-                    
+                    setU.ajoutFichier(s, mailE, mailR);
+                    setU.ajoutMessage(s, type, msgid, idF, iddmd, dureeV, date);
+
                     System.out.print("l'id de la demande " + iddmd);
                 } else {
                     JOptionPane.showMessageDialog(null, "Erreur veuillez réessayer plus tard");
