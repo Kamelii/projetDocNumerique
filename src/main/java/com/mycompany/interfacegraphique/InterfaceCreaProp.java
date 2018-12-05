@@ -103,11 +103,13 @@ public class InterfaceCreaProp extends java.awt.Frame {
         valeurParametreDesire = new javax.swing.JLabel();
         ajouterObjProp = new javax.swing.JButton();
         ajouterObjDesire = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
         jMenu2.setText("jMenu2");
 
+        setPreferredSize(new java.awt.Dimension(1580, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -227,11 +229,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, 170, -1));
 
         texteTypeObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        texteTypeObjDesire.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                texteTypeObjDesireActionPerformed(evt);
-            }
-        });
         pan.add(texteTypeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 170, 320, -1));
 
         checkPasObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -252,7 +249,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
         });
         pan.add(checkPasObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 130, 320, 40));
 
-        boutonValiderProp.setBackground(new java.awt.Color(102, 204, 255));
         boutonValiderProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         boutonValiderProp.setText("Envoyer la proposition / demande ");
         boutonValiderProp.setMaximumSize(new java.awt.Dimension(275, 30));
@@ -264,7 +260,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
                 boutonValiderPropActionPerformed(evt);
             }
         });
-        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 500, 40));
+        pan.add(boutonValiderProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 370, 40));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Jour(s)");
@@ -356,6 +352,10 @@ public class InterfaceCreaProp extends java.awt.Frame {
             }
         });
         pan.add(ajouterObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 280, 170, -1));
+
+        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton1.setText("Acceuil");
+        pan.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 110, 40));
 
         add(pan, java.awt.BorderLayout.CENTER);
 
@@ -577,12 +577,12 @@ public class InterfaceCreaProp extends java.awt.Frame {
             sizeY = sizeYDefault;
 
             if (nbObjetProp > nbObjetDesire) {
-                d = new Dimension(1570, sizeY + nbObjetProp * sizeYObjt);
+                d = new Dimension(1580, sizeY + nbObjetProp * sizeYObjt);
                 sizeY += nbObjetProp * sizeYObjt;
                 boutonValiderProp.setLocation(1050, sizeY + nbObjetProp * sizeYObjt - sizeYObjt);
                 posYBouton = sizeY + nbObjetProp * sizeYObjt - sizeYObjt;
             } else {
-                d = new Dimension(1570, sizeY + nbObjetDesire * sizeYObjt);
+                d = new Dimension(1580, sizeY + nbObjetDesire * sizeYObjt);
                 sizeY += nbObjetDesire * sizeYObjt;
                 boutonValiderProp.setLocation(1050, sizeY + nbObjetDesire * sizeYObjt - sizeYObjt);
                 posYBouton = sizeY + nbObjetDesire * sizeYObjt - sizeYObjt;
@@ -625,12 +625,12 @@ public class InterfaceCreaProp extends java.awt.Frame {
             sizeY = sizeYDefault;
 
             if (nbObjetDesire > nbObjetProp) {
-                d = new Dimension(1570, sizeY + nbObjetDesire * sizeYObjt);
+                d = new Dimension(1580, sizeY + nbObjetDesire * sizeYObjt);
                 sizeY += nbObjetDesire * sizeYObjt;
                 boutonValiderProp.setLocation(1050, sizeY + nbObjetDesire * sizeYObjt - sizeYObjt);
                 posYBouton = sizeY + nbObjetDesire * sizeYObjt - sizeYObjt;
             } else {
-                d = new Dimension(1570, sizeY + nbObjetProp * sizeYObjt);
+                d = new Dimension(1580, sizeY + nbObjetProp * sizeYObjt);
                 sizeY += nbObjetProp * sizeYObjt;
                 boutonValiderProp.setLocation(1050, sizeY + nbObjetProp * sizeYObjt - sizeYObjt);
                 posYBouton = sizeY + nbObjetProp * sizeYObjt - sizeYObjt;
@@ -656,10 +656,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
             posYCurrentParamDesire = 310 + nbObjetDesire * sizeYObjt;
         }
     }//GEN-LAST:event_ajouterObjDesireActionPerformed
-
-    private void texteTypeObjDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteTypeObjDesireActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_texteTypeObjDesireActionPerformed
 
     /**
      * @param args the command line arguments
@@ -687,6 +683,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
     private javax.swing.JLabel descriptObjPropose;
     private javax.swing.JLabel descriptObjPropose1;
     private javax.swing.JLabel duree;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
