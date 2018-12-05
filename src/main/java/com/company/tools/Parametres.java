@@ -5,6 +5,9 @@
  */
 package com.company.tools;
 
+import com.mycompany.interfacegraphique.InterfaceAffichProp;
+import static com.mycompany.interfacegraphique.InterfaceAffichProp.iap;
+import static com.mycompany.interfacegraphique.InterfaceAffichProp.sizeYAffich;
 import com.mycompany.interfacegraphique.InterfaceCreaProp;
 import static com.mycompany.interfacegraphique.InterfaceCreaProp.icp;
 import static com.mycompany.interfacegraphique.InterfaceCreaProp.pan;
@@ -22,14 +25,21 @@ public class Parametres {
     String valeur;
     public JLabel TexteNom;
     public JLabel TexteValeur;
+    public JLabel TexteParam;
     public static int posYCurrentParamProp = 310;
     public static int posYCurrentParamDesire = 310;
+    public static int posYCurrentAffichParamProp = 240;
+    public static int posYCurrentAffichParamDesire = 240;
     public static int sizeYParam = 30;
     public static int positionCurrentBouton = 310;
 
     public Parametres(String nom, String valeur) {
         this.nom = nom;
         this.valeur = valeur;
+    }
+    
+    public Parametres(){
+        
     }
     
     
@@ -117,6 +127,74 @@ public class Parametres {
                 icp.revalidate();
             }
         }
+    }
+    
+    public void afficherParamProp(int type,String nom,String valeur){
+        Dimension d = new Dimension(1570, sizeYAffich + sizeYParam);
+        if(type==0){
+            
+            
+            this.TexteParam= new JLabel();
+            
+            System.out.println("" + nom + " : " + valeur);
+            this.TexteParam.setText("" + nom + " : " + valeur);
+            this.TexteParam.setFont(new java.awt.Font("Arial", 1, 14));
+            this.TexteParam.setLocation(580, posYCurrentAffichParamProp);
+            
+            
+
+            if (posYCurrentAffichParamProp >= posYCurrentAffichParamDesire) {
+
+                InterfaceAffichProp.pan.add(this.TexteParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, posYCurrentAffichParamProp, 250, 20));
+
+                posYCurrentAffichParamProp += sizeYParam;
+                sizeYAffich += sizeYParam;
+                
+                iap.revalidate();
+                
+            } else {
+                InterfaceAffichProp.pan.add(this.TexteParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, posYCurrentAffichParamProp, 250, 20));
+
+                posYCurrentAffichParamProp += sizeYParam;
+                
+                iap.revalidate();
+            }
+            
+            
+        }
+        
+         if(type==1){
+            
+            
+            this.TexteParam= new JLabel();
+            
+            System.out.println("" + nom + " : " + valeur);
+            this.TexteParam.setText("" + nom + " : " + valeur);
+            this.TexteParam.setFont(new java.awt.Font("Arial", 1, 14));
+            this.TexteParam.setLocation(1080, posYCurrentAffichParamDesire);
+            
+            
+
+            if (posYCurrentAffichParamDesire >= posYCurrentAffichParamProp) {
+
+                InterfaceAffichProp.pan.add(this.TexteParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, posYCurrentAffichParamDesire, 250, 20));
+
+                posYCurrentAffichParamDesire += sizeYParam;
+                sizeYAffich += sizeYParam;
+                
+                iap.revalidate();
+                
+            } else {
+                InterfaceAffichProp.pan.add(this.TexteParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, posYCurrentAffichParamDesire, 250, 20));
+
+                posYCurrentAffichParamDesire += sizeYParam;
+                
+                iap.revalidate();
+            }
+            
+            
+        }
+        
     }
 
 }

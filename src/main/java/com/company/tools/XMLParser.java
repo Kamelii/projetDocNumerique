@@ -11,34 +11,35 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLParser {
 
-    
-    public static void AfficherAcc(String fileName){
+    public static void AfficherAcc(String fileName) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try{
+        try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             File fileXML = new File("src/main/java/com/company/tools/" + fileName);
-            
+
             Document xml = builder.parse(fileXML);
-            
+
             Element root = xml.getDocumentElement();
-            
+
             String text = root.getElementsByTagName("NmIE").item(0).getTextContent();
-            
+
             InterfaceAcc.messageTroc.setText("Acceptez vous detroquer avec : " + text + "?");
-           
-        }catch (ParserConfigurationException | SAXException | IOException e) {
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
-        } 
+        }
     }
-    
-    public static void AfficherProp(String fileName){
-        
+
+    public static void AfficherProp(String fileName) {
+        int i,j;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try{
+        try {
 
             DocumentBuilder builder = factory.newDocumentBuilder();
 
@@ -46,26 +47,43 @@ public class XMLParser {
 
             Document xml = builder.parse(fileXML);
             Element root = xml.getDocumentElement();
-            
+
             String nomE = root.getElementsByTagName("NmIE").item(0).getTextContent();
             String nomR = root.getElementsByTagName("NmIR").item(0).getTextContent();
             String duree = root.getElementsByTagName("DureeValideMsg").item(0).getTextContent();
             String mailE = root.getElementsByTagName("MailDest").item(0).getTextContent();
-            String mailR = root.getElementsByTagName("MailExp").item(0).getTextContent();      
+            String mailR = root.getElementsByTagName("MailExp").item(0).getTextContent();
             String titreP = root.getElementsByTagName("TitreP").item(0).getTextContent();
-                     
-            
+
             InterfaceAffichProp.nomEmetteur.setText("Nom de l'émetteur : " + nomE);
             InterfaceAffichProp.nomRecepteur.setText("Nom du récepteur : " + nomR);
             InterfaceAffichProp.duree.setText("Durée de validité : " + duree + " jour(s)");
             InterfaceAffichProp.mailEmetteur.setText("Mail de l'émetteur : " + mailE);
             InterfaceAffichProp.mailRecepteur.setText("Mail du récepteur : " + mailR);
             InterfaceAffichProp.titreProp.setText("Titre de la proposition : " + titreP);
+
+            Objet o = new Objet();
+            Element elem1 = (Element) root.getElementsByTagName("Offre").item(0);
             
-          
-           
-        }catch (ParserConfigurationException | SAXException | IOException e) {
+            NodeList nl  = elem1.getElementsByTagName("Objet");
+            
+            for (i = 0; i < nl.getLength(); i++) {
+                Element elem = (Element) nl.item(i);
+                NodeList nl2 = elem.getElementsByTagName("Parametre");
+                o.afficheObjProp(0, elem.getElementsByTagName("Type").item(0).getTextContent(), nl2, i+1);
+            }
+            
+            elem1 = (Element) root.getElementsByTagName("Demande").item(0);
+            nl  = elem1.getElementsByTagName("Objet");
+            
+            for (i = 0; i < nl.getLength(); i++) {
+                Element elem = (Element) nl.item(i);
+                NodeList nl2 = elem.getElementsByTagName("Parametre");
+                o.afficheObjProp(1, elem.getElementsByTagName("Type").item(0).getTextContent(), nl2, i+1);
+            }
+            
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
-        } 
+        }
     }
 }

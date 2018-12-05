@@ -7,6 +7,7 @@ package com.mycompany.interfacegraphique;
 
 import com.company.tools.Objet;
 import com.company.tools.XMLParser;
+import com.company.tools.XmlTools;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
 public class InterfaceAffichProp extends java.awt.Frame {
     public static List<Objet> lo = new ArrayList<>();
     public static int nbObjet = 0;
+    public static InterfaceAffichProp iap;
+    public static int sizeYAffich = 350;
     /**
      * Creates new form InterfaceAffichProp
      */
@@ -43,16 +46,12 @@ public class InterfaceAffichProp extends java.awt.Frame {
         laProposition = new javax.swing.JLabel();
         titreProp = new javax.swing.JLabel();
         proposition = new javax.swing.JLabel();
-        typeObjPropose = new javax.swing.JLabel();
-        descriptObjPropose = new javax.swing.JLabel();
         desire = new javax.swing.JLabel();
-        typeObjDesire = new javax.swing.JLabel();
-        descriptObjDesire = new javax.swing.JLabel();
         boutonFaireConProp = new javax.swing.JButton();
         boutonAccepter = new javax.swing.JButton();
         boutonRefuser = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(555, 920));
+        setPreferredSize(new java.awt.Dimension(1570, 350));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -103,7 +102,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
         coordonnees.setMaximumSize(new java.awt.Dimension(120, 30));
         coordonnees.setMinimumSize(new java.awt.Dimension(120, 30));
         coordonnees.setPreferredSize(new java.awt.Dimension(120, 30));
-        pan.add(coordonnees, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 480, -1));
+        pan.add(coordonnees, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 520, -1));
 
         laProposition.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
         laProposition.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -111,42 +110,20 @@ public class InterfaceAffichProp extends java.awt.Frame {
         laProposition.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         laProposition.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         laProposition.setPreferredSize(new java.awt.Dimension(110, 30));
-        pan.add(laProposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 480, -1));
+        pan.add(laProposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 1000, -1));
 
         titreProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         titreProp.setText("Titre de ma proposition : [ Titre de la proposition ]");
         titreProp.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(titreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 430, -1));
+        pan.add(titreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, 990, -1));
 
         proposition.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         proposition.setText("La personne propose : ");
-        pan.add(proposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 180, 20));
-
-        typeObjPropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        typeObjPropose.setText("Type de l'objet : [Type de l'objet ] ");
-        typeObjPropose.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(typeObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 390, -1));
-
-        descriptObjPropose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        descriptObjPropose.setText("Description de l'objet : [ Descritpion de l'objet ]");
-        descriptObjPropose.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        descriptObjPropose.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(descriptObjPropose, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 390, 180));
+        pan.add(proposition, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 180, 20));
 
         desire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         desire.setText("La personne désire : ");
-        pan.add(desire, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, -1, -1));
-
-        typeObjDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        typeObjDesire.setText("Type de l'objet : [ Type de l'objet ] ");
-        typeObjDesire.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 620, 400, -1));
-
-        descriptObjDesire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        descriptObjDesire.setText("Description de l'objet : [ Descrption de l'objet ]");
-        descriptObjDesire.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        descriptObjDesire.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pan.add(descriptObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 650, 400, 170));
+        pan.add(desire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 150, -1, -1));
 
         boutonFaireConProp.setBackground(new java.awt.Color(102, 204, 255));
         boutonFaireConProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -157,7 +134,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
                 boutonFaireConPropActionPerformed(evt);
             }
         });
-        pan.add(boutonFaireConProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 830, -1, -1));
+        pan.add(boutonFaireConProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
 
         boutonAccepter.setBackground(new java.awt.Color(204, 255, 102));
         boutonAccepter.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -168,7 +145,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
                 boutonAccepterActionPerformed(evt);
             }
         });
-        pan.add(boutonAccepter, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 830, -1, -1));
+        pan.add(boutonAccepter, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
         boutonRefuser.setBackground(new java.awt.Color(255, 204, 102));
         boutonRefuser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -179,7 +156,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
                 boutonRefuserActionPerformed(evt);
             }
         });
-        pan.add(boutonRefuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 830, -1, -1));
+        pan.add(boutonRefuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         add(pan, java.awt.BorderLayout.CENTER);
 
@@ -194,11 +171,15 @@ public class InterfaceAffichProp extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
-        // TODO mettre la fonction quand l'utilisateur accepte la proposition
+        XmlTools xmlTools = new XmlTools();
+         
+        xmlTools.accepterAccep("xml.xml");
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
     private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
-        // TODO mettre la fonction quand l'utilisateur refuse la proposition
+        XmlTools xmlTools = new XmlTools();
+         
+        xmlTools.refuserAccep("xml.xml");
     }//GEN-LAST:event_boutonRefuserActionPerformed
 
     private void boutonFaireConPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonFaireConPropActionPerformed
@@ -210,9 +191,9 @@ public class InterfaceAffichProp extends java.awt.Frame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            InterfaceAffichProp ia = new InterfaceAffichProp();
+            iap = new InterfaceAffichProp();
             XMLParser.AfficherProp("xml.xml");
-            ia.setVisible(true);
+            iap.setVisible(true);
         });
     }
 
@@ -222,8 +203,6 @@ public class InterfaceAffichProp extends java.awt.Frame {
     private javax.swing.JButton boutonFaireConProp;
     private javax.swing.JButton boutonRefuser;
     private javax.swing.JLabel coordonnees;
-    private javax.swing.JLabel descriptObjDesire;
-    private javax.swing.JLabel descriptObjPropose;
     private javax.swing.JLabel desire;
     public static javax.swing.JLabel duree;
     private javax.swing.JLabel laProposition;
@@ -231,11 +210,9 @@ public class InterfaceAffichProp extends java.awt.Frame {
     public static javax.swing.JLabel mailRecepteur;
     public static javax.swing.JLabel nomEmetteur;
     public static javax.swing.JLabel nomRecepteur;
-    private javax.swing.JPanel pan;
+    public static javax.swing.JPanel pan;
     private javax.swing.JLabel proposition;
     private javax.swing.JLabel titreFenetreAffichProp;
     public static javax.swing.JLabel titreProp;
-    private javax.swing.JLabel typeObjDesire;
-    private javax.swing.JLabel typeObjPropose;
     // End of variables declaration//GEN-END:variables
 }

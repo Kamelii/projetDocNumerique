@@ -470,23 +470,9 @@ public class InterfaceCreaProp extends java.awt.Frame {
             err = 1;
         }
 
-        if (estCheckPropose == 0) {
-            if (texteTypeObjPropose.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Le champs \"Type de l'objet\" de la section \"Je propose :\" doit être rempli!");
-                err = 1;
-            }
-        }
-
-        if (estCheckDesire == 0) {
-            if (texteTypeObjDesire.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Le champs \"Type de l'objet\" de la section \"Je désire :\" doit être rempli!");
-                err = 1;
-            }
-        }
-
         if (err != 1) {
             XmlTools xmlTools = new XmlTools();
-            if (xmlTools.creerProp(texteEmetteur.getText(), texteRecepteur.getText(), (Integer) choixNbJour.getValue(), texteMailEmetteur.getText(), textMailRecepteur.getText(), texteTitreProp.getText())) {
+            if (xmlTools.creerProp(texteEmetteur.getText(), texteRecepteur.getText(), (Integer) choixNbJour.getValue(), texteMailEmetteur.getText(), textMailRecepteur.getText(), texteTitreProp.getText(),listOProp,listODesire)) {
                 JOptionPane.showMessageDialog(null, "Demande cree avec succes");
             } else {
                 JOptionPane.showMessageDialog(null, "Erreur veuillez resseayer plus tard");
@@ -572,6 +558,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listOProp.get(nbObjetProp).afficherObj(0, nbObjetProp);
 
             nbObjetProp++;
+            
+            texteTypeObjPropose.setText("");
 
             revalidate();
 
@@ -614,6 +602,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listODesire.get(nbObjetDesire).afficherObj(1, nbObjetDesire);
 
             nbObjetDesire++;
+            
+            texteTypeObjDesire.setText("");
 
             revalidate();
 
@@ -631,7 +621,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         java.awt.EventQueue.invokeLater(() -> {
             oProp = new Objet();
             oDesire = new Objet();
-
+            
             icp.setVisible(true);
         });
     }
