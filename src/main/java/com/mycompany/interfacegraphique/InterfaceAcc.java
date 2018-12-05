@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.interfacegraphique;
 
 
@@ -103,7 +99,7 @@ public class InterfaceAcc extends java.awt.Frame {
         Statement s = setR.ConnectionDB();
         setR.repAuto(s, acc);
         int idF=setR.ajoutFichier(s,emetteur,recepteur);
-        setR.ajoutMessage(s,type,msgId,,);
+        
         JOptionPane.showMessageDialog(null, "Demande acceptée");
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
