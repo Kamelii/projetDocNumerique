@@ -4,7 +4,6 @@ import com.mycompany.interfacegraphique.InterfaceAcc;
 import com.mycompany.interfacegraphique.InterfaceAffichProp;
 import java.io.File;
 import java.io.IOException;
-import static java.lang.Integer.parseInt;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,7 +12,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -30,8 +28,10 @@ public class XMLParser {
             Element root = xml.getDocumentElement();
 
             String text = root.getElementsByTagName("NmIE").item(0).getTextContent();
-
+            
             InterfaceAcc.messageTroc.setText("Acceptez vous detroquer avec : " + text + "?");
+          
+
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();

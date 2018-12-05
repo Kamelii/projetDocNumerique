@@ -9,17 +9,10 @@ import com.company.tools.DriverManage;
 import com.company.tools.XMLParser;
 
 import com.company.tools.XmlTools;
-import java.awt.Color;
-import java.io.StringWriter;
 import java.sql.Statement;
-import static java.time.Instant.now;
-import static java.time.LocalDateTime.now;
 import java.util.Date;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
  *
@@ -32,7 +25,7 @@ public class InterfaceAut extends java.awt.Frame {
     static DriverManage setU = new DriverManage();
     InterfaceAcc reponse = new InterfaceAcc();
 
-    String type = "dmdAuth";
+    String type= "dmdAuth";
     int dmd;
     int value;
 
@@ -69,6 +62,7 @@ public class InterfaceAut extends java.awt.Frame {
         texteDescDemande = new javax.swing.JTextPane();
         choixNbJour = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setLocationRelativeTo(null);
         setMinimumSize(new java.awt.Dimension(520, 330));
@@ -94,10 +88,10 @@ public class InterfaceAut extends java.awt.Frame {
 
         titreFenetreProp.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         titreFenetreProp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titreFenetreProp.setText("Je souhaite avoir l'autorisation de troque : ");
+        titreFenetreProp.setText("Je souhaite avoir l'autorisation de troc : ");
         titreFenetreProp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titreFenetreProp.setPreferredSize(new java.awt.Dimension(240, 40));
-        pan.add(titreFenetreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 500, 50));
+        pan.add(titreFenetreProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 540, 50));
 
         nomRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         nomRecepteur.setText("Nom récepteur : *");
@@ -135,7 +129,7 @@ public class InterfaceAut extends java.awt.Frame {
         texteRecepteur.setNextFocusableComponent(choixNbJour);
         pan.add(texteRecepteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 330, 20));
 
-        boutonEnvoyerDemande.setBackground(new java.awt.Color(102, 204, 255));
+        boutonEnvoyerDemande.setBackground(new java.awt.Color(204, 204, 204));
         boutonEnvoyerDemande.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         boutonEnvoyerDemande.setText("Envoyer la demande d'autorisation");
         boutonEnvoyerDemande.setNextFocusableComponent(texteEmetteur);
@@ -144,7 +138,7 @@ public class InterfaceAut extends java.awt.Frame {
                 boutonEnvoyerDemandeActionPerformed(evt);
             }
         });
-        pan.add(boutonEnvoyerDemande, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 370, 40));
+        pan.add(boutonEnvoyerDemande, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 360, 40));
 
         mailRecepteur1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         mailRecepteur1.setText("Mail récepteur : ");
@@ -171,6 +165,10 @@ public class InterfaceAut extends java.awt.Frame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Jour(s)");
         pan.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, -1, 40));
+
+        jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton1.setText("Acceuil");
+        pan.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 120, 40));
 
         add(pan, java.awt.BorderLayout.CENTER);
 
@@ -226,13 +224,12 @@ public class InterfaceAut extends java.awt.Frame {
                 String ficId = "" + idF;
                 if (xmlTools.creerAuth(ficId, emetteur, recepteur, dureeV, mailE, mailR, descDmd)) {
                     JOptionPane.showMessageDialog(null, "Demande crée avec succès");
-                    String fichier = "dmd_" + ficId + ".xml";
-                    msgid = xmlParser.recupererIdMsg(fichier);
+                    
+                    int msgId=5;
                     setU.ajoutAuth(s, mailE, mailR, descDmd, dureeV);
                     int iddmd = setU.recupID(s, mailE, mailR);
                     setU.ajoutFichier(s, mailE, mailR);
-                    setU.ajoutMessage(s, type, msgid, idF, iddmd, dureeV, date);
-
+                    setU.ajoutMessage(s,"Auth", msgId, idF, iddmd, dureeV, date);
 
                     System.out.print("l'id de la demande " + iddmd);
                 } else {
@@ -275,6 +272,7 @@ public class InterfaceAut extends java.awt.Frame {
     private javax.swing.JSpinner choixNbJour;
     private javax.swing.JLabel descDemande;
     private javax.swing.JLabel duree;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel mailEmetteur;

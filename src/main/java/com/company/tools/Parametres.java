@@ -48,7 +48,7 @@ public class Parametres {
     
     
     public void afficherParam(int type, int nbParam) {
-        Dimension d = new Dimension(1570, sizeY + sizeYParam);
+        Dimension d = new Dimension(1580, sizeY + sizeYParam);
         if (type == 0) {
             this.TexteNom = new JLabel();
             this.TexteValeur = new JLabel();
@@ -65,7 +65,7 @@ public class Parametres {
                 InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYCurrentParamProp, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, posYCurrentParamProp, 70, 20));
 
-                Dimension df = new Dimension(1570, sizeY + sizeYParam);
+                Dimension df = new Dimension(1580, sizeY + sizeYParam);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -79,7 +79,7 @@ public class Parametres {
                 InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYCurrentParamProp, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, posYCurrentParamProp, 70, 20));
 
-                Dimension df = new Dimension(1570, sizeY);
+                Dimension df = new Dimension(1580, sizeY);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -108,7 +108,7 @@ public class Parametres {
                 InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYCurrentParamDesire, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, posYCurrentParamDesire, 70, 20));
 
-                Dimension df = new Dimension(1570, sizeY + sizeYParam);
+                Dimension df = new Dimension(1580, sizeY + sizeYParam);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -120,7 +120,7 @@ public class Parametres {
                 InterfaceCreaProp.pan.add(this.TexteNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYCurrentParamDesire, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteValeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, posYCurrentParamDesire, 70, 20));
 
-                Dimension df = new Dimension(1570, sizeY);
+                Dimension df = new Dimension(1580, sizeY);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -136,7 +136,7 @@ public class Parametres {
     }
     
     public void removeParam(int type){
-        InterfaceCreaProp.pan.setSize(1570, InterfaceCreaProp.sizeY - 10);
+        InterfaceCreaProp.pan.setSize(1580, InterfaceCreaProp.sizeY - 10);
         InterfaceCreaProp.pan.remove(this.TexteNom);
         InterfaceCreaProp.pan.remove(this.TexteValeur);
         posYCurrentParamProp -= sizeYParam;
@@ -145,7 +145,7 @@ public class Parametres {
     }
     
     public void afficherParamProp(int type,String nom,String valeur){
-        Dimension d = new Dimension(1570, sizeYAffich + sizeYParam);
+        Dimension d = new Dimension(1580, sizeYAffich + sizeYParam);
         if(type==0){
             
             

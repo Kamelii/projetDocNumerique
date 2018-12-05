@@ -62,7 +62,7 @@ public final class Objet {
         }
     }
     public void afficherObj(int type, int nbObjet) {
-        Dimension d = new Dimension(1570, sizeY + sizeYObjt);
+        Dimension d = new Dimension(1580, sizeY + sizeYObjt);
         if (type == 0) {
             this.TexteParamObjAdd = new JLabel();
             this.TexteTypeObjAdd = new JLabel();
@@ -79,7 +79,7 @@ public final class Objet {
                 InterfaceCreaProp.pan.add(this.TexteTypeObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYObjetProp, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteParamObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYObjetProp + 30, 250, 20));
 
-                Dimension df = new Dimension(1570, sizeY + sizeYObjt);
+                Dimension df = new Dimension(1580, sizeY + sizeYObjt);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -91,7 +91,7 @@ public final class Objet {
                 InterfaceCreaProp.pan.add(this.TexteTypeObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYObjetProp, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteParamObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, posYObjetProp + 30, 250, 20));
 
-                Dimension df = new Dimension(1570, sizeY);
+                Dimension df = new Dimension(1580, sizeY);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -122,7 +122,7 @@ public final class Objet {
                 InterfaceCreaProp.pan.add(this.TexteTypeObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYObjetDesire, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteParamObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYObjetDesire + 30, 250, 20));
 
-                Dimension df = new Dimension(1570, sizeY + sizeYObjt);
+                Dimension df = new Dimension(1580, sizeY + sizeYObjt);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -134,7 +134,7 @@ public final class Objet {
                 InterfaceCreaProp.pan.add(this.TexteTypeObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYObjetDesire, 250, 20));
                 InterfaceCreaProp.pan.add(this.TexteParamObjAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, posYObjetDesire + 30, 250, 20));
 
-                Dimension df = new Dimension(1570, sizeY);
+                Dimension df = new Dimension(1580, sizeY);
                 icp.setSize(df);
                 icp.setPreferredSize(df);
                 pan.setSize(d);
@@ -177,7 +177,7 @@ public final class Objet {
 
             posYObjAffichProp = posYCurrentAffichParamProp + sizeYParam;
 
-            Dimension df = new Dimension(1570, posYObjAffichProp);
+            Dimension df = new Dimension(1580, posYObjAffichProp);
             iap.setSize(df);
             iap.setPreferredSize(df);
             InterfaceAffichProp.pan.setSize(df);
@@ -213,10 +213,10 @@ public final class Objet {
             posYObjAffichDesire = posYCurrentAffichParamDesire + sizeYParam;
             Dimension df;
             if(posYObjAffichDesire >= posYObjAffichProp){
-                df = new Dimension(1570, posYObjAffichDesire);
+                df = new Dimension(1580, posYObjAffichDesire);
             }
             else{
-                df = new Dimension(1570, posYObjAffichProp);
+                df = new Dimension(1580, posYObjAffichProp);
             }
             
             iap.setSize(df);

@@ -46,9 +46,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+           
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();
@@ -69,7 +67,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", ""+ ((int)Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();
@@ -141,9 +139,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+            
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();
@@ -164,7 +160,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", ""+ ((int)Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();
@@ -231,9 +227,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+            
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();
@@ -254,7 +248,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", ""+ ((int)Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();
@@ -321,9 +315,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+           
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();
@@ -344,7 +336,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", ""+ ((int) Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();
@@ -409,9 +401,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+          
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();
@@ -432,7 +422,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", ""+ ((int)Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();
@@ -482,9 +472,7 @@ public class XmlTools {
             xMLStreamWriter.writeCharacters(ficId);
             xMLStreamWriter.writeEndElement();
 
-            xMLStreamWriter.writeStartElement("FicId");
-            xMLStreamWriter.writeCharacters(UUID.randomUUID().toString());
-            xMLStreamWriter.writeEndElement();
+          
             xMLStreamWriter.writeStartElement("NmIE");
             xMLStreamWriter.writeCharacters(nomE);
             xMLStreamWriter.writeEndElement();
@@ -505,7 +493,7 @@ public class XmlTools {
             xMLStreamWriter.writeStartElement("CollMess");
             xMLStreamWriter.writeAttribute("NbOfTxs", "1");
             xMLStreamWriter.writeStartElement("Message");
-            xMLStreamWriter.writeAttribute("MsgId", "m" + UUID.randomUUID().toString());
+            xMLStreamWriter.writeAttribute("MsgId", ""+ ((int) Math.random()%1000));
             xMLStreamWriter.writeStartElement("Dte");
             xMLStreamWriter.writeCharacters(now.toString());
             xMLStreamWriter.writeEndElement();

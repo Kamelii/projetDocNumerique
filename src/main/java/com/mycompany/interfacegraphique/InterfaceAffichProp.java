@@ -125,7 +125,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
         desire.setText("La personne désire : ");
         pan.add(desire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 150, -1, -1));
 
-        boutonFaireConProp.setBackground(new java.awt.Color(102, 204, 255));
+        boutonFaireConProp.setBackground(new java.awt.Color(204, 204, 204));
         boutonFaireConProp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         boutonFaireConProp.setText("Faire une contre-proposition");
         boutonFaireConProp.setPreferredSize(new java.awt.Dimension(240, 40));
@@ -136,7 +136,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
         });
         pan.add(boutonFaireConProp, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
 
-        boutonAccepter.setBackground(new java.awt.Color(204, 255, 102));
+        boutonAccepter.setBackground(new java.awt.Color(204, 204, 204));
         boutonAccepter.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         boutonAccepter.setText("Accepter");
         boutonAccepter.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -147,7 +147,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
         });
         pan.add(boutonAccepter, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
-        boutonRefuser.setBackground(new java.awt.Color(255, 204, 102));
+        boutonRefuser.setBackground(new java.awt.Color(204, 204, 204));
         boutonRefuser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         boutonRefuser.setText("Refuser");
         boutonRefuser.setPreferredSize(new java.awt.Dimension(130, 40));
