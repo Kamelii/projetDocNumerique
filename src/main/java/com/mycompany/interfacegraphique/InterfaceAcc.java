@@ -1,4 +1,3 @@
-
 package com.mycompany.interfacegraphique;
 
 
@@ -133,3 +132,4 @@ public class InterfaceAcc extends java.awt.Frame {
     private javax.swing.JLabel titreFenetreAcc;
     // End of variables declaration//GEN-END:variables
 }
+

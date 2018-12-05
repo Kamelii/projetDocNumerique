@@ -92,6 +92,7 @@ public class DriverManage {
         }
         return idf;
     }
+
     public void supprimeFic(Statement s, String mailE, String mailR){
       try{
           int state= s.executeUpdate("DELETE FROM TABLE fichier WHERE mailE='"+mailE+"' AND mailR='"+mailR+"'");
@@ -112,6 +113,7 @@ public class DriverManage {
             result.next();
              idDmd = result.getInt("id");
             if (idDmd==0) {
+
                 reponse = "Vous n'avez pas de demande d'autorisation de troc ";
 
             } else {
@@ -130,6 +132,7 @@ public class DriverManage {
     public void ajoutMessage(Statement s, String type, int msgid, int fichierid, int typemsg, int dureev, String dte) {
         try {
             int statut = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,'" + typemsg + "',0,0,'" + dureev + "','" + dte + "')");
+
 
             String msgType= type;
             if(msgType=="dmdAuth"){
@@ -151,6 +154,7 @@ public class DriverManage {
     }
 
     public int ajoutPropo(Statement s, String titre, String type) {
+
         int idPropo=0;
     try{
     int statut=s.executeUpdate("INSERT INTO propo (titre,type) VALUES ('"+titre+"', '"+type+"')");
@@ -172,6 +176,7 @@ public class DriverManage {
         } catch (SQLException n) {
             System.out.println(n);
         }
+
     }
 
     public Statement ConnectionDB() {

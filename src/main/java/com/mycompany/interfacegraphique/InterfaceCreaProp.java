@@ -108,7 +108,6 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         jMenu2.setText("jMenu2");
 
-        setPreferredSize(new java.awt.Dimension(1570, 395));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -228,6 +227,11 @@ public class InterfaceCreaProp extends java.awt.Frame {
         pan.add(typeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, 170, -1));
 
         texteTypeObjDesire.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        texteTypeObjDesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texteTypeObjDesireActionPerformed(evt);
+            }
+        });
         pan.add(texteTypeObjDesire, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 170, 320, -1));
 
         checkPasObjPropose.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -473,7 +477,9 @@ public class InterfaceCreaProp extends java.awt.Frame {
             JOptionPane.showMessageDialog(null, "Le champs \"Titre de ma proposition\" doit être rempli!");
             err = 1;
         }
+
         if (err != 1) {
+
             XmlTools xmlTools = new XmlTools();
 
             DriverManage setFic = new DriverManage();
@@ -490,8 +496,10 @@ public class InterfaceCreaProp extends java.awt.Frame {
             String titre = texteTitreProp.getText();
             String reponse = setFic.verifieReponseDMD(s, mailE, mailR);
 
+
             if (reponse.equals("Accepte")) {
                 if (xmlTools.creerProp(emetteur, recepteur, dureeV, mailE, mailR, titre, listOProp, listODesire)) {
+
                     int idFic = setFic.ajoutFichier(s, mailE, mailR);
                     int idPropo = setFic.ajoutPropo(s, titre, type);
                     int msgId = XMLParser.recupererIdMsg(xml);
@@ -589,6 +597,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listOProp.get(nbObjetProp).afficherObj(0, nbObjetProp);
 
             nbObjetProp++;
+            
+            texteTypeObjPropose.setText("");
 
             texteTypeObjPropose.setText("");
 
@@ -633,6 +643,8 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listODesire.get(nbObjetDesire).afficherObj(1, nbObjetDesire);
 
             nbObjetDesire++;
+            
+            texteTypeObjDesire.setText("");
 
             texteTypeObjDesire.setText("");
 
@@ -644,6 +656,10 @@ public class InterfaceCreaProp extends java.awt.Frame {
             posYCurrentParamDesire = 310 + nbObjetDesire * sizeYObjt;
         }
     }//GEN-LAST:event_ajouterObjDesireActionPerformed
+
+    private void texteTypeObjDesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteTypeObjDesireActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texteTypeObjDesireActionPerformed
 
     /**
      * @param args the command line arguments
