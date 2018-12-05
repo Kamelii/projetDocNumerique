@@ -1,28 +1,48 @@
+<<<<<<< HEAD
 com\mycompany\interfacegraphique\InterfaceCreaProp$6.class
+=======
+>>>>>>> 6f5a53382a8ea6e56fb449de33576a7e66e55cde
 com\mycompany\interfacegraphique\InterfaceCreaProp$1.class
 com\mycompany\interfacegraphique\InterfaceAffichProp$1.class
 com\mycompany\interfacegraphique\InterfaceAcc.class
 com\mycompany\interfacegraphique\InterfaceAut$2.class
+<<<<<<< HEAD
 com\mycompany\interfacegraphique\InterfaceCreaProp$9.class
+=======
+>>>>>>> 6f5a53382a8ea6e56fb449de33576a7e66e55cde
 com\mycompany\interfacegraphique\InterfaceCreaProp$2.class
 com\mycompany\interfacegraphique\InterfaceAffichProp$4.class
 com\mycompany\interfacegraphique\InterfaceCreaProp$4.class
 com\mycompany\interfacegraphique\InterfaceAffichProp$2.class
+<<<<<<< HEAD
 com\mycompany\interfacegraphique\InterfaceCreaProp$7.class
 com\mycompany\interfacegraphique\InterfaceAcc$2.class
 com\mycompany\interfacegraphique\InterfaceCreaProp.class
 com\company\tools\Objet.class
+=======
+com\mycompany\interfacegraphique\InterfaceAcc$2.class
+com\mycompany\interfacegraphique\InterfaceCreaProp.class
+com\company\tools\DriverManage.class
+>>>>>>> 6f5a53382a8ea6e56fb449de33576a7e66e55cde
 com\mycompany\interfacegraphique\InterfaceAffichProp.class
 com\company\tools\XMLParser.class
 com\mycompany\interfacegraphique\InterfaceAcc$1.class
 com\mycompany\interfacegraphique\InterfaceAut$3.class
 com\mycompany\interfacegraphique\InterfaceAut$1.class
 com\mycompany\interfacegraphique\InterfaceCreaProp$5.class
+<<<<<<< HEAD
 com\company\tools\Parametres.class
 com\company\tools\XmlTools.class
 com\mycompany\interfacegraphique\InterfaceAut.class
 com\mycompany\interfacegraphique\InterfaceAcc$3.class
 com\mycompany\interfacegraphique\InterfaceCreaProp$8.class
+=======
+com\mycompany\interfacegraphique\MenuPrincipal$1.class
+com\company\tools\XmlTools.class
+com\mycompany\interfacegraphique\InterfaceAut.class
+com\mycompany\interfacegraphique\MenuPrincipal.class
+com\mycompany\interfacegraphique\InterfaceAcc$3.class
+>>>>>>> 6f5a53382a8ea6e56fb449de33576a7e66e55cde
 com\company\tools\SimpleErrorHandler.class
 com\mycompany\interfacegraphique\InterfaceAffichProp$3.class
 com\mycompany\interfacegraphique\InterfaceCreaProp$3.class

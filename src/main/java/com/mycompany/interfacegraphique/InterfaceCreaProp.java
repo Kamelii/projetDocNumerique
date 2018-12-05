@@ -5,17 +5,21 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.DriverManage;
 import com.company.tools.Objet;
 import static com.company.tools.Objet.sizeYObjt;
 import com.company.tools.Parametres;
 import static com.company.tools.Parametres.posYCurrentParamDesire;
 import static com.company.tools.Parametres.posYCurrentParamProp;
 import static com.company.tools.Parametres.positionCurrentBouton;
+import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -469,13 +473,40 @@ public class InterfaceCreaProp extends java.awt.Frame {
             JOptionPane.showMessageDialog(null, "Le champs \"Titre de ma proposition\" doit être rempli!");
             err = 1;
         }
-
         if (err != 1) {
             XmlTools xmlTools = new XmlTools();
-            if (xmlTools.creerProp(texteEmetteur.getText(), texteRecepteur.getText(), (Integer) choixNbJour.getValue(), texteMailEmetteur.getText(), textMailRecepteur.getText(), texteTitreProp.getText(),listOProp,listODesire)) {
-                JOptionPane.showMessageDialog(null, "Demande cree avec succes");
+
+            DriverManage setFic = new DriverManage();
+            Statement s = setFic.ConnectionDB();
+            String emetteur = texteEmetteur.getText();
+            String mailE = texteMailEmetteur.getText();
+            String mailR = textMailRecepteur.getText();
+            String recepteur = texteRecepteur.getText();
+            int dureeV = (Integer) choixNbJour.getValue();
+            Date now = new Date();
+            String date = now.toString();
+            String xml = "xml.xml";
+            String type = "dmndePropo";
+            String titre = texteTitreProp.getText();
+            String reponse = setFic.verifieReponseDMD(s, mailE, mailR);
+
+            if (reponse.equals("Accepte")) {
+                if (xmlTools.creerProp(emetteur, recepteur, dureeV, mailE, mailR, titre, listOProp, listODesire)) {
+                    int idFic = setFic.ajoutFichier(s, mailE, mailR);
+                    int idPropo = setFic.ajoutPropo(s, titre, type);
+                    int msgId = XMLParser.recupererIdMsg(xml);
+                    setFic.ajoutMessage(s, type, msgId, idFic, idPropo, dureeV, date);
+                    JOptionPane.showMessageDialog(null, "Proposition crée avec succes");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur veuillez resseayer plus tard");
+                }
+
             } else {
-                JOptionPane.showMessageDialog(null, "Erreur veuillez resseayer plus tard");
+                if (reponse.equals("Refuse")) {
+                    System.out.println(mailR + "n'a pas accepté votre demande de troc");
+                } else {
+                    System.out.println(reponse);
+                }
             }
 
         }
@@ -558,7 +589,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listOProp.get(nbObjetProp).afficherObj(0, nbObjetProp);
 
             nbObjetProp++;
-            
+
             texteTypeObjPropose.setText("");
 
             revalidate();
@@ -602,7 +633,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listODesire.get(nbObjetDesire).afficherObj(1, nbObjetDesire);
 
             nbObjetDesire++;
-            
+
             texteTypeObjDesire.setText("");
 
             revalidate();
@@ -621,7 +652,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
         java.awt.EventQueue.invokeLater(() -> {
             oProp = new Objet();
             oDesire = new Objet();
-            
+
             icp.setVisible(true);
         });
     }

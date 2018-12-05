@@ -31,10 +31,9 @@ import org.xml.sax.InputSource;
  */
 public class XmlTools {
 
-    public boolean creerAuth(String nomE, String nomR, int dureeV, String emailE, String emailR, String descDmd) {
+    public boolean creerAuth(String ficId, String nomE, String nomR, int dureeV, String emailE, String emailR, String descDmd) {
         try {
             Date now = new Date();
-            String ficId = "" + (Math.random()%1000);
             StringWriter stringWriter = new StringWriter();
             XMLOutputFactory xMLOutputFactory = XMLOutputFactory.newInstance();
             XMLStreamWriter xMLStreamWriter

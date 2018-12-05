@@ -19,10 +19,13 @@
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-            <type>jar</type>
+
+            <groupId>mysql</groupId>
+
+            <artifactId>mysql-connector-java</artifactId>
+
+            <version>8.0.11</version>
+
         </dependency>
     </dependencies>
     <properties>

@@ -86,4 +86,69 @@ public class XMLParser {
             e.printStackTrace();
         }
     }
+    
+    public static int recupererIdMsg(String Fichier){
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        int idmsg=0;
+        try{
+
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            File fileXML = new File("src/main/java/com/company/tools/" + Fichier);
+
+            Document xml = builder.parse(fileXML);
+            Element root = xml.getDocumentElement();
+            NodeList elem =  root.getElementsByTagName("Message");
+            String msgid = elem.item(0).getAttributes().getNamedItem("MsgId").getNodeValue();
+            idmsg= Integer.parseInt(msgid);
+           
+        }catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } 
+    return idmsg;
+    }
+
+ public static String recupererEmetteur(String Fichier){
+
+ DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+       String Emetteur=null;
+        try{
+
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            File fileXML = new File("src/main/java/com/company/tools/" + Fichier);
+
+            Document xml = builder.parse(fileXML);
+            Element root = xml.getDocumentElement();
+            Emetteur = root.getElementsByTagName("MailExp").item(0).getTextContent();
+
+         
+           
+        }catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } 
+    return Emetteur;
+    }
+
+ public static String recupererRecepteur(String Fichier){
+
+ DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+       String recepteur=null;
+        try{
+
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            File fileXML = new File("src/main/java/com/company/tools/" + Fichier);
+
+            Document xml = builder.parse(fileXML);
+            Element root = xml.getDocumentElement();
+           recepteur = root.getElementsByTagName("MailDest").item(0).getTextContent();
+
+         
+           
+        }catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } 
+    return recepteur;
+    }
 }

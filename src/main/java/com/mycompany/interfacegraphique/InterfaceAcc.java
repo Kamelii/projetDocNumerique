@@ -1,21 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.interfacegraphique;
 
+
+import com.company.tools.DriverManage;
+import static com.mycompany.interfacegraphique.InterfaceAut.setU;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
-/**
- *
- * @author DELL XPS
- */
+
 public class InterfaceAcc extends java.awt.Frame {
 
-    /**
-     * Creates new form InterfaceAcc
-     */
+    static DriverManage setR=new DriverManage();
+    String type="accepAuto";
+    String fichier= "xml.xml";
+    XMLParser p= new XMLParser();
+    String emetteur= p.recupererEmetteur(fichier);
+    String recepteur= p.recupererRecepteur(fichier);
+    int msgId= p.recupererIdMsg(fichier);
+    
     public InterfaceAcc() {
         initComponents();
     }
@@ -91,29 +94,36 @@ public class InterfaceAcc extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
+
+        String acc = "Accepte";
+        Statement s = setR.ConnectionDB();
+        setR.repAuto(s, acc);
+        int idF=setR.ajoutFichier(s,emetteur,recepteur);
+        
+        JOptionPane.showMessageDialog(null, "Demande acceptée");
+    }//GEN-LAST:event_boutonAccepterActionPerformed
+
+    private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
+        String ref = "Refuse";
+        Statement s = setR.ConnectionDB();
+        setR.repAuto(s, ref);
+        setR.supprimeFic(s,emetteur, recepteur);
+        JOptionPane.showMessageDialog(null, "Demande Refusée");
+
          XmlTools xmlTools = new XmlTools();
          
         xmlTools.accepterAuth("xml.xml");
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
-    private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
-        XmlTools xmlTools = new XmlTools();
-         
-        xmlTools.refuserAuth("xml.xml");
-    }//GEN-LAST:event_boutonRefuserActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            InterfaceAcc ia = new InterfaceAcc();
-            XMLParser.AfficherAcc("xml.xml");
-            ia.setVisible(true);
-                    
+            Statement s = setU.ConnectionDB();
+            System.out.println("connexion réussie");
+
+            new InterfaceAcc().setVisible(true);
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boutonAccepter;

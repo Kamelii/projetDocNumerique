@@ -9,11 +9,15 @@ import com.mycompany.interfacegraphique.InterfaceAffichProp;
 import static com.mycompany.interfacegraphique.InterfaceAffichProp.iap;
 import static com.mycompany.interfacegraphique.InterfaceAffichProp.sizeYAffich;
 import com.mycompany.interfacegraphique.InterfaceCreaProp;
+
+import javax.swing.JTextField;
+
 import static com.mycompany.interfacegraphique.InterfaceCreaProp.icp;
 import static com.mycompany.interfacegraphique.InterfaceCreaProp.pan;
 import static com.mycompany.interfacegraphique.InterfaceCreaProp.sizeY;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+
 
 /**
  *
@@ -127,6 +131,17 @@ public class Parametres {
                 icp.revalidate();
             }
         }
+
+
+    }
+    
+    public void removeParam(int type){
+        InterfaceCreaProp.pan.setSize(1570, InterfaceCreaProp.sizeY - 10);
+        InterfaceCreaProp.pan.remove(this.TexteNom);
+        InterfaceCreaProp.pan.remove(this.TexteValeur);
+        posYCurrentParamProp -= sizeYParam;
+        
+
     }
     
     public void afficherParamProp(int type,String nom,String valeur){

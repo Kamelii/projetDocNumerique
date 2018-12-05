@@ -52,6 +52,15 @@ public final class Objet {
         pan.repaint();
     }
 
+
+    public void deleteParam(int type) {
+        nbParam--;
+        if (nbParam - 1 > 0) {
+            Parametres p = lp.get(nbParam - 1);
+            p.removeParam(type);
+            lp.remove(nbParam-1);
+        }
+    }
     public void afficherObj(int type, int nbObjet) {
         Dimension d = new Dimension(1570, sizeY + sizeYObjt);
         if (type == 0) {
@@ -92,6 +101,7 @@ public final class Objet {
             }
 
             icp.revalidate();
+
 
         }
 

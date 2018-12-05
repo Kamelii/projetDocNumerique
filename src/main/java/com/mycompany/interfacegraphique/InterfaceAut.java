@@ -5,9 +5,14 @@
  */
 package com.mycompany.interfacegraphique;
 
+import com.company.tools.DriverManage;
 import com.company.tools.XmlTools;
 import java.awt.Color;
 import java.io.StringWriter;
+import java.sql.Statement;
+import static java.time.Instant.now;
+import static java.time.LocalDateTime.now;
+import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -19,7 +24,16 @@ import javax.xml.stream.XMLStreamWriter;
  * @author DELL XPS
  */
 public class InterfaceAut extends java.awt.Frame {
-  static String em;
+
+    static String em;
+    javax.swing.event.ChangeEvent evt;
+    static DriverManage setU = new DriverManage();
+    InterfaceAcc reponse = new InterfaceAcc();
+
+    String type = "dmdAuth";
+    int dmd;
+    int value;
+
     /**
      * Creates new form InterfaceAut
      */
@@ -90,6 +104,11 @@ public class InterfaceAut extends java.awt.Frame {
 
         texteMailEmetteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteMailEmetteur.setNextFocusableComponent(textMailRecepteur);
+        texteMailEmetteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texteMailEmetteurActionPerformed(evt);
+            }
+        });
         pan.add(texteMailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 330, 20));
 
         duree.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -165,51 +184,77 @@ public class InterfaceAut extends java.awt.Frame {
 
     private void boutonEnvoyerDemandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerDemandeActionPerformed
         int err = 0;
-        
-        
-        if(texteEmetteur.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Nom émetteur\" doit être rempli!");
+
+        if (texteEmetteur.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom émetteur\" doit être rempli!");
+            err = 1;
+        } else {
+            em = texteEmetteur.getText();
+
+        }
+
+        if (texteRecepteur.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Le champs \"Nom récepteur\" doit être rempli!");
             err = 1;
         }
-        else {
-       em = texteEmetteur.getText();
-        
-        }
-        
-        if(texteRecepteur.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Le champs \"Nom récepteur\" doit être rempli!");
-            err = 1;
-        }
-        
-     
-        if(err != 1){
+
+        if (err != 1) {
             XmlTools xmlTools = new XmlTools();
-            if(xmlTools.creerAuth(texteEmetteur.getText(), texteRecepteur.getText(), (Integer)choixNbJour.getValue(),texteMailEmetteur.getText(), textMailRecepteur.getText(), texteDescDemande.getText()))
-                JOptionPane.showMessageDialog(null,"Demande cree avec succes");
-            else
-                JOptionPane.showMessageDialog(null,"Erreur veuillez resseayer plus tard");
-                
-        } 
+            String emetteur = texteEmetteur.getText();
+            String mailE = texteMailEmetteur.getText();
+            String mailR = textMailRecepteur.getText();
+            String recepteur = texteRecepteur.getText();
+            int dureeV = value;
+            String descDmd = texteDescDemande.getText();
+            Date now = new Date();
+            String date = now.toString();
+            int msgid = 4;
+            Statement s = setU.ConnectionDB();
+            int e = setU.exist(s, mailR);
+            if (e != 0) {
+                System.out.println("Utilisateur trouvé");
+                int idF= setU.ajoutFichier(s, mailE, mailR);
+                String ficId=""+idF;
+                if (xmlTools.creerAuth(ficId,emetteur,recepteur, dureeV, mailE, mailR, descDmd)) {
+                    JOptionPane.showMessageDialog(null, "Demande crée avec succès");
+
+                    setU.ajoutAuth(s, mailE, mailR, descDmd, dureeV);
+                    int iddmd = setU.recupID(s, mailE, mailR);
+                    //setU.ajoutFichier(s,mailE,mailR);
+                    setU.ajoutMessage(s, type, msgid, idF,iddmd, dureeV, date);
+                    
+                    System.out.print("l'id de la demande " + iddmd);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur veuillez réessayer plus tard");
+
+                }
+            } else {
+                System.out.println("utilisateur non trouvé");
+            }
+
+        }
     }//GEN-LAST:event_boutonEnvoyerDemandeActionPerformed
 
     private void choixNbJourStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_choixNbJourStateChanged
-        JSpinner s = (JSpinner) evt.getSource();
-         
-         int value = (Integer) s.getValue();
-         
-         if (value < 1){
-             choixNbJour.setValue(1);
-         }
+        JSpinner v = (JSpinner) evt.getSource();
+        value = (Integer) v.getValue();
+
+        if (value < 1) {
+            choixNbJour.setValue(1);
+        }
     }//GEN-LAST:event_choixNbJourStateChanged
 
-    
+    private void texteMailEmetteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteMailEmetteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texteMailEmetteurActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new InterfaceAut().setVisible(true);
-            
+
         });
     }
 
