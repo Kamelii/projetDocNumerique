@@ -173,13 +173,13 @@ public class InterfaceAffichProp extends java.awt.Frame {
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
         XmlTools xmlTools = new XmlTools();
          
-        xmlTools.accepterAccep("xml.xml");
+        xmlTools.accepterAccep("affichPropCree.xml");
     }//GEN-LAST:event_boutonAccepterActionPerformed
 
     private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
         XmlTools xmlTools = new XmlTools();
          
-        xmlTools.refuserAccep("xml.xml");
+        xmlTools.refuserAccep("affichPropCree.xml");
     }//GEN-LAST:event_boutonRefuserActionPerformed
 
     private void boutonFaireConPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonFaireConPropActionPerformed
@@ -192,7 +192,7 @@ public class InterfaceAffichProp extends java.awt.Frame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             iap = new InterfaceAffichProp();
-            XMLParser.AfficherProp("xml.xml");
+            XMLParser.AfficherProp("affichPropCree.xml");
             iap.setVisible(true);
         });
     }

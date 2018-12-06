@@ -25,7 +25,7 @@ public class InterfaceAut extends java.awt.Frame {
     static DriverManage setU = new DriverManage();
     InterfaceAcc reponse = new InterfaceAcc();
 
-    String type= "dmdAuth";
+   
     int dmd;
     int value;
 
@@ -228,8 +228,8 @@ public class InterfaceAut extends java.awt.Frame {
                     int msgId=5;
                     setU.ajoutAuth(s, mailE, mailR, descDmd, dureeV);
                     int iddmd = setU.recupID(s, mailE, mailR);
-                    setU.ajoutFichier(s, mailE, mailR);
-                    setU.ajoutMessage(s,"Auth", msgId, idF, iddmd, dureeV, date);
+                    
+                    setU.ajoutMessage(s,"dmdAuth", msgId, idF, iddmd, dureeV, date);
 
                     System.out.print("l'id de la demande " + iddmd);
                 } else {

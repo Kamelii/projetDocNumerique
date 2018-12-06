@@ -29,7 +29,7 @@ public class XMLParser {
 
             String text = root.getElementsByTagName("NmIE").item(0).getTextContent();
             
-            InterfaceAcc.messageTroc.setText("Acceptez vous detroquer avec : " + text + "?");
+            InterfaceAcc.messageTroc.setText("Acceptez vous de troquer avec : " + text + "?");
           
 
 
@@ -53,8 +53,8 @@ public class XMLParser {
             String nomE = root.getElementsByTagName("NmIE").item(0).getTextContent();
             String nomR = root.getElementsByTagName("NmIR").item(0).getTextContent();
             String duree = root.getElementsByTagName("DureeValideMsg").item(0).getTextContent();
-            String mailE = root.getElementsByTagName("MailDest").item(0).getTextContent();
-            String mailR = root.getElementsByTagName("MailExp").item(0).getTextContent();
+            String mailE = root.getElementsByTagName("MailExp").item(0).getTextContent();
+            String mailR = root.getElementsByTagName("MailDest").item(0).getTextContent();
             String titreP = root.getElementsByTagName("TitreP").item(0).getTextContent();
 
             InterfaceAffichProp.nomEmetteur.setText("Nom de l'émetteur : " + nomE);

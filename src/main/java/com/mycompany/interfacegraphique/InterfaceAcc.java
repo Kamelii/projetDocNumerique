@@ -6,6 +6,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import com.company.tools.XMLParser;
 import com.company.tools.XmlTools;
+import java.util.Date;
 
 public class InterfaceAcc extends java.awt.Frame {
 
@@ -15,7 +16,14 @@ public class InterfaceAcc extends java.awt.Frame {
     XMLParser p = new XMLParser();
     String emetteur = p.recupererEmetteur(fichier);
     String recepteur = p.recupererRecepteur(fichier);
-    int msgId = p.recupererIdMsg(fichier);
+    int msgid = 6;
+    
+    Date now = new Date();
+    String date = now.toString();
+    Statement s = setR.ConnectionDB();
+    int idE = setR.recupIDuser(s, emetteur);
+    int idR = setR.recupIDuser(s, recepteur);
+    int iddmd = setR.recupID(s, emetteur, recepteur);
 
     public InterfaceAcc() {
         System.out.println("connexion réussie");
@@ -88,14 +96,12 @@ public class InterfaceAcc extends java.awt.Frame {
     private void boutonAccepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccepterActionPerformed
 
         String acc = "Accepte";
-        Statement s = setR.ConnectionDB();
-        System.out.println("test");
-        
-        System.out.println("test");
-        int idF = setR.ajoutFichier(s, emetteur, recepteur);
-        System.out.println(idF);
-        setR.repAuto(s, acc,idF);
 
+        
+        setR.repAuto(s, acc, iddmd);
+        int idF = setR.recupIDF(s, idE, idR);
+        int dureeV= setR.recupDureeV(s,iddmd);
+        setR.ajoutMessage(s, "accepAuth", msgid, idF, iddmd, dureeV,date);
         JOptionPane.showMessageDialog(null, "Demande acceptée");
         XmlTools xmlTools = new XmlTools();
         xmlTools.accepterAuth("afficherAcc.xml");
@@ -104,9 +110,10 @@ public class InterfaceAcc extends java.awt.Frame {
 
     private void boutonRefuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRefuserActionPerformed
         String ref = "Refuse";
-        Statement s = setR.ConnectionDB();
-        
-        setR.supprimeFic(s, emetteur, recepteur);
+       
+        setR.repAuto(s, ref, iddmd);
+        setR.supprimeFic(s, idE, idR);
+        System.out.println("fichier supprimé");
         //setR.repAuto(s, ref);
         JOptionPane.showMessageDialog(null, "Demande Refusée");
 
@@ -117,7 +124,7 @@ public class InterfaceAcc extends java.awt.Frame {
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            Statement s = setU.ConnectionDB();
+           
             InterfaceAcc ia = new InterfaceAcc();
             XMLParser.AfficherAcc("afficherAcc.xml");
             ia.setVisible(true);

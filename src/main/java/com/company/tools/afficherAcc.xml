@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><Fichier>
     <Header>
-        <FicId>33</FicId>
-        <NmIE>dan</NmIE>
-        <NmIR>dan</NmIR>
-        <MailExp>dan@mail.fr</MailExp>
-        <MailDest>dan@mail.fr</MailDest>
+        <FicId>57</FicId>
+        <NmIE>kamelia</NmIE>
+        <NmIR>quentin</NmIR>
+        <MailExp>kamelia@mail.fr</MailExp>
+        <MailDest>quentin@mail.fr</MailDest>
     </Header>
     <Body>
         <CollMess NbOfTxs="1">
             <Message MsgId="0">
-                <Dte>Wed Dec 05 16:46:05 CET 2018</Dte>
-                <DureeValideMsg>3</DureeValideMsg>
+                <Dte>Wed Dec 05 23:46:17 CET 2018</Dte>
+                <DureeValideMsg>4</DureeValideMsg>
                 <Dmd>
-                    <DescDmd>Je veux troquer avec toi </DescDmd>
-                    <DateDebut>Wed Dec 05 16:46:05 CET 2018</DateDebut>
-                    <DateFin>c7a27729-51e7-4e42-87f9-f1f57edfdc6f</DateFin>
+                    <DescDmd>efzfze</DescDmd>
+                    <DateDebut>Wed Dec 05 23:46:17 CET 2018</DateDebut>
+                    <DateFin>f7113313-81e3-4226-83d8-cc64187463b6</DateFin>
                 </Dmd>
             </Message>
         </CollMess>

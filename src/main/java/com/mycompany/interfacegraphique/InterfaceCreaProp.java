@@ -136,6 +136,11 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         texteEmetteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteEmetteur.setNextFocusableComponent(texteRecepteur);
+        texteEmetteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texteEmetteurActionPerformed(evt);
+            }
+        });
         pan.add(texteEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 330, 20));
 
         nomRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -160,6 +165,11 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
         texteMailEmetteur.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         texteMailEmetteur.setNextFocusableComponent(textMailRecepteur);
+        texteMailEmetteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texteMailEmetteurActionPerformed(evt);
+            }
+        });
         pan.add(texteMailEmetteur, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 330, 20));
 
         mailRecepteur.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -484,10 +494,16 @@ public class InterfaceCreaProp extends java.awt.Frame {
 
             DriverManage setFic = new DriverManage();
             Statement s = setFic.ConnectionDB();
-            String emetteur = texteEmetteur.getText();
+
             String mailE = texteMailEmetteur.getText();
+
             String mailR = textMailRecepteur.getText();
+            String emetteur = texteEmetteur.getText();
             String recepteur = texteRecepteur.getText();
+            int idE = setFic.recupIDuser(s, mailE);
+
+            int idR = setFic.recupIDuser(s, mailR);
+
             int dureeV = (Integer) choixNbJour.getValue();
             Date now = new Date();
             String date = now.toString();
@@ -496,14 +512,50 @@ public class InterfaceCreaProp extends java.awt.Frame {
             String titre = texteTitreProp.getText();
             String reponse = setFic.verifieReponseDMD(s, mailE, mailR);
 
+            String typeO;
+            String nomP;
+            String valeurP;
 
             if (reponse.equals("Accepte")) {
                 if (xmlTools.creerProp(emetteur, recepteur, dureeV, mailE, mailR, titre, listOProp, listODesire)) {
 
-                    int idFic = setFic.ajoutFichier(s, mailE, mailR);
+                    int idFic = setFic.recupIDF(s, idE, idR);
+                    System.out.println(idFic);
+                    System.out.println("ajout reussi du fichier");
+
                     int idPropo = setFic.ajoutPropo(s, titre, type);
-                    int msgId = XMLParser.recupererIdMsg(xml);
+                    System.out.println("ajout reussi");
+                    for (int i = 0; i < listOProp.size(); i++) {
+                        Objet o = listOProp.get(i);
+                        typeO = o.type;
+
+                        for (int j = 0; j < o.lp.size(); j++) {
+                            nomP = o.lp.get(j).nom;
+                            valeurP = o.lp.get(j).valeur;
+
+                            setFic.ajoutObjet(s, typeO, nomP, valeurP, idPropo);
+
+                        }
+                    }
+
+                    for (int i = 0; i < listODesire.size(); i++) {
+                        Objet o = listODesire.get(i);
+
+                        typeO = o.type;
+
+                        for (int j = 0; j < o.lp.size(); j++) {
+                            nomP = o.lp.get(j).nom;
+                            valeurP = o.lp.get(j).valeur;
+
+                            setFic.ajoutObjet(s, typeO, nomP, valeurP, idPropo);
+
+                        }
+                    }
+
+                    int msgId = 8;
                     setFic.ajoutMessage(s, type, msgId, idFic, idPropo, dureeV, date);
+                    System.out.println(" message ajouté");
+
                     JOptionPane.showMessageDialog(null, "Proposition crée avec succes");
                 } else {
                     JOptionPane.showMessageDialog(null, "Erreur veuillez resseayer plus tard");
@@ -597,7 +649,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listOProp.get(nbObjetProp).afficherObj(0, nbObjetProp);
 
             nbObjetProp++;
-            
+
             texteTypeObjPropose.setText("");
 
             texteTypeObjPropose.setText("");
@@ -643,7 +695,7 @@ public class InterfaceCreaProp extends java.awt.Frame {
             listODesire.get(nbObjetDesire).afficherObj(1, nbObjetDesire);
 
             nbObjetDesire++;
-            
+
             texteTypeObjDesire.setText("");
 
             texteTypeObjDesire.setText("");
@@ -656,6 +708,14 @@ public class InterfaceCreaProp extends java.awt.Frame {
             posYCurrentParamDesire = 310 + nbObjetDesire * sizeYObjt;
         }
     }//GEN-LAST:event_ajouterObjDesireActionPerformed
+
+    private void texteEmetteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteEmetteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texteEmetteurActionPerformed
+
+    private void texteMailEmetteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texteMailEmetteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texteMailEmetteurActionPerformed
 
     /**
      * @param args the command line arguments

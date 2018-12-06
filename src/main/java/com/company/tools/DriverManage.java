@@ -24,6 +24,19 @@ public class DriverManage {
         return mail;
     }
 
+    public int recupIDuser(Statement s, String mail) {
+        int id = 0;
+        try {
+            ResultSet result = s.executeQuery("SELECT id FROM utilisateur WHERE mail='" + mail + "'");
+            result.next();
+            id = result.getInt("id");
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return id;
+    }
+
     /**
      * *** récuprére d'id d'une demande******
      */
@@ -31,6 +44,44 @@ public class DriverManage {
         int id = 0;
         try {
             ResultSet result = s.executeQuery("SELECT id FROM demande WHERE emetteur='" + emailE + "'AND recepteur='" + emailR + "'");
+            result.next();
+            id = result.getInt("id");
+
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
+        return id;
+    }
+
+    public void ajoutObjet(Statement s, String type, String nom, String valeur, int idProp) {
+        try {
+            int statut = s.executeUpdate("INSERT INTO objet (type, nom, valeur,propo) VALUES ('" + type + "','" + nom + "','" + valeur + "','" + idProp + "')");
+            System.out.println("Objet ajoutée avec succes");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * *** récuprére d'id d'une demande******
+     */
+    public int recupIDF(Statement s, int emetteur, int recepteur) {
+        int id =0;
+        try {
+            ResultSet result = s.executeQuery("SELECT id FROM fichier WHERE emetteur='" + emetteur + "'AND recepteur='" + recepteur + "'");
+            result.next();
+            id = result.getInt("id");
+
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
+        return id;
+    }
+
+    public int recupDureeV(Statement s, int iddmd) {
+        int id = 0;
+        try {
+            ResultSet result = s.executeQuery("SELECT id FROM demande WHERE iddemde='" + iddmd + "'");
             result.next();
             id = result.getInt("id");
 
@@ -93,9 +144,9 @@ public class DriverManage {
         return idf;
     }
 
-    public void supprimeFic(Statement s, String mailE, String mailR) {
+    public void supprimeFic(Statement s, int idE, int idR) {
         try {
-            int state = s.executeUpdate("DELETE FROM fichier WHERE mailE='" + mailE + "' AND mailR='" + mailR + "'");
+            int state = s.executeUpdate("DELETE FROM fichier WHERE emetteur='" + idE + "' AND recepteur='" + idR + "'");
 
         } catch (SQLException e) {
 
@@ -129,20 +180,19 @@ public class DriverManage {
 
     public void ajoutMessage(Statement s, String type, int msgid, int fichierid, int typemsg, int dureev, String dte) {
         try {
-            int statut = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,'" + typemsg + "',0,0,'" + dureev + "','" + dte + "')");
 
             String msgType = type;
-            if (msgType == "dmdAuth") {
-                int statutauth = s.executeUpdate("INSERT INTO message (auth) VALUES ('" + typemsg + "')");
+            if (msgType.compareTo("dmdAuth") == 0) {
+                int statutauth = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,'" + typemsg + "',0,0,'" + dureev + "','" + dte + "')");
             }
-            if (msgType == "dmndePropo") {
-                int statutpropo = s.executeUpdate("INSERT INTO message (dmd) VALUES ('" + typemsg + "')");
+            if (msgType.compareTo("dmndePropo") == 0) {
+                int statutauth = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "','" + typemsg + "',0,0,0,'" + dureev + "','" + dte + "')");
             }
-            if (msgType == "accepAuth") {
-                int statutauth = s.executeUpdate("INSERT INTO message (acc) VALUES ('" + typemsg + "')");
+            if (msgType.compareTo("accepAuth") == 0) {
+                int statutauth = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,0,'" + typemsg + "',0,'" + dureev + "','" + dte + "')");
             }
-            if (msgType == "accPropo") {
-                int statutauth = s.executeUpdate("INSERT INTO message (propo) VALUES ('" + typemsg + "')");
+            if (msgType.compareTo("accPropo") == 0) {
+                int statutauth = s.executeUpdate("INSERT INTO message (type,msgid,fichier,propo,dmd,accpt,auth,dureevalid,dte) VALUES ('" + type + "','" + msgid + "','" + fichierid + "',0,0,0,'" + typemsg + "','" + dureev + "','" + dte + "')");
             }
 
         } catch (SQLException e) {

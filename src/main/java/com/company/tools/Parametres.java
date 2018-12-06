@@ -25,8 +25,8 @@ import javax.swing.JLabel;
  */
 public class Parametres {
 
-    String nom;
-    String valeur;
+    public String nom;
+    public String valeur;
     public JLabel TexteNom;
     public JLabel TexteValeur;
     public JLabel TexteParam;

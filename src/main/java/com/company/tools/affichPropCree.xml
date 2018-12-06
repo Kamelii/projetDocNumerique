@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Fichier>
+    <Header>
+        <FicId>0.20088879577495644</FicId>
+        <NmIE>Quentin</NmIE>
+        <NmIR>Dyhia</NmIR>
+        <MailExp>quentin@mail.fr</MailExp>
+        <MailDest>dyhia@mail.fr</MailDest>
+    </Header>
+    <Body>
+        <CollMess NbOfTxs="1">
+            <Message MsgId="0">
+                <Dte>Wed Dec 05 22:31:09 CET 2018</Dte>
+                <DureeValideMsg>3</DureeValideMsg>
+                <Prop>
+                    <TitreP>Echange</TitreP>
+                    <Offre>
+                        <Objet>
+                            <Type>Souris</Type>
+                            <Description>
+                                <Parametre>
+                                    <Nom>Couleur</Nom>
+                                    <Valeur>Noire</Valeur>
+                                </Parametre>
+                                <Parametre>
+                                    <Nom>Taille</Nom>
+                                    <Valeur>10 cm</Valeur>
+                                </Parametre>
+                            </Description>
+                        </Objet>
+                        <Objet>
+                            <Type>Tapis</Type>
+                            <Description>
+                                <Parametre>
+                                    <Nom>Taille</Nom>
+                                    <Valeur>1m40</Valeur>
+                                </Parametre>
+                                <Parametre>
+                                    <Nom>Couleur</Nom>
+                                    <Valeur>Rouge</Valeur>
+                                </Parametre>
+                                <Parametre>
+                                    <Nom>Epaisseur</Nom>
+                                    <Valeur>2 cm</Valeur>
+                                </Parametre>
+                            </Description>
+                        </Objet>
+                    </Offre>
+                    <Demande>
+                        <Objet>
+                            <Type>Table</Type>
+                            <Description>
+                                <Parametre>
+                                    <Nom>Longueur</Nom>
+                                    <Valeur>2 m</Valeur>
+                                </Parametre>
+                                <Parametre>
+                                    <Nom>Matière</Nom>
+                                    <Valeur>Bois</Valeur>
+                                </Parametre>
+                            </Description>
+                        </Objet>
+                    </Demande>
+                </Prop>
+            </Message>
+        </CollMess>
+    </Body>
+</Fichier>

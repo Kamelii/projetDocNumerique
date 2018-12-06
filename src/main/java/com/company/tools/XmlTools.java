@@ -361,7 +361,7 @@ public class XmlTools {
             xMLStreamWriter.close();
 
             String xmlString = stringWriter.getBuffer().toString();
-            generateXmlFile("refuser.xml", xmlString);
+            generateXmlFile("refuserProp.xml", xmlString);
             stringWriter.close();
             return true;
         } catch (Exception e) {
@@ -447,7 +447,7 @@ public class XmlTools {
             xMLStreamWriter.close();
 
             String xmlString = stringWriter.getBuffer().toString();
-            generateXmlFile("accepter.xml", xmlString);
+            generateXmlFile("accepterProp.xml", xmlString);
             stringWriter.close();
             return true;
         } catch (Exception e) {
